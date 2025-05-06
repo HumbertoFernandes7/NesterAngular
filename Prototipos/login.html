@@ -1,0 +1,37 @@
+<!-- login.component.html -->
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login - Nester</title>
+  <link rel="stylesheet" href="css/login-style.css">
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="logo-wrapper">
+      <img src="assets/img/logo-nester.png" alt="Logo Nester" class="logo-img">
+    </div>
+    <h1>Entrar</h1>
+    <form class="login-form">
+      <div class="form-group">
+        <label for="usuario">Celular, email ou nome de usuário</label>
+        <input type="text" id="usuario" name="usuario" placeholder="Digite aqui" required>
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha" placeholder="Sua senha" required>
+      </div>
+
+      <button type="submit" class="btn-submit">Entrar</button>
+    </form>
+    <div class="options">
+      <a href="esqueci-minha-senha.html" class="link-option">Esqueceu sua senha?</a>
+      <span>·</span>
+      <a href="cadastro.html" class="link-option">Cadastre-se</a>
+    </div>
+  </div>
+</body>
+</html>
