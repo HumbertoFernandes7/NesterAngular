@@ -1,0 +1,203 @@
+/* home-logged.component.css */
+
+/* Reset básico e estilo global */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  html, body {
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background-color: #15202B;
+    color: #FFF;
+  }
+  
+  /* Container principal: sidebar esquerdo, feeds e sidebar direito */
+  .app-container {
+    display: flex; /* Usando flexbox para layout de três colunas ([css-tricks.com](https://css-tricks.com/snippets/css/a-guide-to-flexbox/?utm_source=chatgpt.com)) */
+    height: 100vh;
+    overflow: hidden;
+  }
+  
+  /* Menu Lateral Esquerdo */
+  .sidebar {
+    width: 250px;
+    background-color: #0a1117;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+  }
+  .logo-wrapper {
+    margin-bottom: 30px;
+  }
+  .logo-img {
+    width: 60px;
+    border-radius: 50%;
+    transition: transform 0.2s; /* Transições suaves ([bitovi.com](https://www.bitovi.com/blog/use-flexbox-to-create-a-sticky-header-and-sidebar-with-flexible-content?utm_source=chatgpt.com)) */
+  }
+  .logo-img:hover,
+  .logo-img:focus {
+    transform: scale(1.1);
+    outline: none;
+  }
+  .nav-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .nav-item {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #FFF;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+  }
+  .nav-item:hover {
+    background-color: rgba(29, 161, 242, 0.1);
+  }
+  .nav-item.active {
+    color: #1DA1F2;
+    background-color: rgba(29, 161, 242, 0.15);
+  }
+  
+  /* Área dos Feeds */
+  .main-feed {
+    flex: 1;
+    background-color: #15202B;
+    padding: 20px;
+    overflow: hidden;
+  }
+  .feeds-wrapper {
+    display: flex;
+    gap: 20px; /* Espaçamento entre feeds ([flexboxpatterns.com](https://flexboxpatterns.com/side-bar?utm_source=chatgpt.com)) */
+    height: 100%;
+  }
+  .feed-container {
+    flex: 1;
+    background-color: #1b1c23;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory; /* Scroll snap para postagens ([developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/CSS/scroll-snap-type?utm_source=chatgpt.com)) */
+  }
+  .feed-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #22303C;
+    padding-bottom: 8px;
+  }
+  .post {
+    scroll-snap-align: start; /* Alinhamento de snap nos posts ([developer.mozilla.org](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_scroll_snap/Basic_concepts?utm_source=chatgpt.com)) */
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-height: calc(100% - 40px);
+  }
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .post-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+  }
+  .post-user-info {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+  }
+  .post-user-info span {
+    color: #8899A6;
+    font-size: 12px;
+  }
+  .post-content {
+    flex: 1;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .post-image {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  .post-actions {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+    margin-bottom: 20px;
+    border-top: 1px solid #22303C;
+  }
+  .action-btn {
+    background: none;
+    border: none;
+    color: #1DA1F2;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+  }
+  .action-btn:hover {
+    background-color: rgba(29, 161, 242, 0.1);
+  }
+  
+  /* Menu Lateral Direito */
+  .right-sidebar {
+    width: 200px;
+    background-color: #0a1117;
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5); /* Sombra invertida para o lado direito */
+    align-items: center;
+  }
+  .right-menu {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .right-item {
+    width: 100%;
+    padding: 12px 20px;
+    font-size: 16px;
+    color: #FFF;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+  }
+  .right-item:hover {
+    background-color: rgba(29, 161, 242, 0.1);
+  }
+  
+  /* Scrollbars personalizadas */
+  .feed-container::-webkit-scrollbar,
+  .post-content::-webkit-scrollbar {
+    width: 8px;
+  }
+  .feed-container::-webkit-scrollbar-thumb,
+  .post-content::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+  }
+  
+  /* Responsividade */
+  @media (max-width: 1024px) {
+    .app-container { flex-direction: column; }
+    .sidebar, .right-sidebar { width: 100%; flex-direction: row; justify-content: space-around; padding: 10px 0; box-shadow: none; }
+    .feeds-wrapper { flex-direction: column; gap: 15px; }
+  }
+  
