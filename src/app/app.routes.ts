@@ -11,5 +11,8 @@ export const routes: Routes = [
     },
     {
         path: 'cadastro', component: UsuarioCadastroComponent,
+    },
+    {
+        path: 'login', component: UsuarioCadastroComponent,
     }
 ];
