@@ -1,0 +1,85 @@
+.home-container {
+  display: flex;                 /* flex container para centralização fácil :contentReference[oaicite:9]{index=9} */
+  flex-direction: column;
+  align-items: center;           /* alinha itens no eixo vertical :contentReference[oaicite:10]{index=10} */
+  justify-content: center;       /* alinha itens no eixo horizontal :contentReference[oaicite:11]{index=11} */
+  text-align: center;
+  min-height: 100vh;             /* ocupa toda a altura da viewport :contentReference[oaicite:12]{index=12} */
+  padding: 40px 20px;
+  background-color: #15202B;     /* tema escuro :contentReference[oaicite:13]{index=13} */
+  color: #FFF;
+  font-family: 'Segoe UI', Tahoma, sans-serif; /* fonte com fallback :contentReference[oaicite:14]{index=14} */
+}
+
+/* 3. Logo */
+.logo-wrapper {
+  margin-bottom: 20px;
+}
+.logo-img {
+  width: 100px;
+  height: auto;
+  border-radius: 50%;
+  transition: transform 0.2s;    /* animação suave :contentReference[oaicite:15]{index=15} */
+}
+.logo-img:hover,
+.logo-img:focus {
+  transform: scale(1.1);
+}
+
+/* 4. Títulos e parágrafos */
+.home-container h1 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+.home-container p {
+  font-size: 1rem;
+  color: #8899A6;                /* cor de texto secundário :contentReference[oaicite:16]{index=16} */
+  margin-bottom: 30px;
+}
+
+/* 5. Botões */
+.actions {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 9999px;         /* formato “pill” :contentReference[oaicite:17]{index=17} */
+  transition: background-color 0.2s, color 0.2s;
+  cursor: pointer;
+}
+/* Primário */
+.btn-primary {
+  background-color: #1DA1F2;
+  color: #FFF;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #1A91DA;
+}
+/* Secundário */
+.btn-secondary {
+  background-color: transparent;
+  color: #1DA1F2;
+  border: 2px solid #1DA1F2;
+}
+.btn-secondary:hover,
+.btn-secondary:focus {
+  background-color: rgba(29,161,242,0.1);
+}
+
+/* 6. Responsividade */
+@media (max-width: 480px) {
+  .home-container h1 {
+    font-size: 1.5rem;
+  }
+  .btn {
+    flex: 1 1 100%;              /* botões ocupam largura total em mobile  */
+  }
+}
