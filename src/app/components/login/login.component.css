@@ -8,25 +8,6 @@
   z-index: 1;
 }
 
-.logo-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.logo-img {
-  width: 75px;
-  height: auto;
-  border-radius: 50%;
-  transition: transform 0.2s;
-}
-
-.logo-img:hover,
-.logo-img:focus {
-  transform: scale(1.1);
-  outline: none;
-}
-
 .container {
   position: relative;
   z-index: 2;
@@ -38,17 +19,36 @@
   border-radius: 20px;
   padding: 30px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-}
-
-.container h1 {
-  margin: 0 0 20px;
-  font-size: 24px;
-  font-weight: bold;
-  color: #FFF;
   text-align: center;
 }
 
-.cadastro-form {
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.logo-img {
+  width: 80px;
+  height: auto;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+
+.logo-img:hover,
+.logo-img:focus {
+  transform: scale(1.1);
+  outline: none;
+}
+
+.container h1 {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #FFF;
+}
+
+.login-form {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -58,6 +58,7 @@
   font-size: 14px;
   color: #8899A6;
   margin-bottom: 5px;
+  text-align: left;
 }
 
 .form-group input {
@@ -95,6 +96,24 @@
 
 .btn-submit:hover {
   background-color: #1A91DA;
+}
+
+.options {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  font-size: 14px;
+}
+
+.link-option {
+  color: #1DA1F2;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.link-option:hover {
+  color: #1A91DA;
 }
 
 @media (max-width: 420px) {

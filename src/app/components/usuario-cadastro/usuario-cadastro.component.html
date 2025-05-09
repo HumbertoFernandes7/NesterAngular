@@ -1,1 +1,57 @@
-<p>usuario-cadastro works!</p>
+<div class="overlay">
+  <div class="container">
+    <div class="logo-wrapper">
+      <img src="assets/logo-nester.png" alt="Logo Nester" class="logo-img" />
+    </div>
+    <h1>Cadastro</h1>
+    <form class="cadastro-form" [formGroup]="cadastroUsuarioForm">
+      <div class="form-group">
+        <label for="nomeCompleto">Nome Completo</label>
+        <input
+          type="text"
+          id="nomeCompleto"
+          name="nomeCompleto"
+          placeholder="Digite seu nome completo"
+          formControlName="nomeCompleto"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Digite seu email"
+          formControlName="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="dataNascimento">Data de Nascimento</label>
+        <input 
+        type="date" 
+        id="dataNascimento" 
+        name="dataNascimento" 
+        formControlName="dataNascimento"
+        required />
+      </div>
+
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          placeholder="Digite sua senha"
+          formControlName="senha"
+          required
+        />
+      </div>
+
+      <button type="submit" class="btn-submit" (click)="cadastrarUsuario()">Cadastrar</button>
+    </form>
+  </div>
+</div>
