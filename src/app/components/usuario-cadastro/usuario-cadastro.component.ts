@@ -8,6 +8,7 @@ import {
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../modulos/usuario';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuario-cadastro',
@@ -22,7 +23,8 @@ export class UsuarioCadastroComponent implements OnInit {
   constructor(
     private formbuilder: FormBuilder,
     private usuarioService: UsuarioService,
-    private router: Router
+    private router: Router,
+    private tostService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -39,10 +41,11 @@ export class UsuarioCadastroComponent implements OnInit {
       var usuario = this.cadastroUsuarioForm.getRawValue() as Usuario;
       this.usuarioService.cadastrarUsuario(usuario).subscribe({
         next: () => {
+          this.tostService.success("Usuário cadastrado com sucesso!");
           this.router.navigate(['/login']);
         },
         error: (erro) => {
-          alert(erro.error.message);
+          this.tostService.error(erro.error.message);
         },
       });
     }
