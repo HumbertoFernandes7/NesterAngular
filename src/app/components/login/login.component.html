@@ -32,10 +32,10 @@
     <button type="submit" class="btn-submit" (click)="login()">Entrar</button>
   </form>
   <div class="options">
-    <a href="esqueci-minha-senha.html" class="link-option"
+    <a [routerLink]="['/esqueceu-senha']" class="link-option"
       >Esqueceu sua senha?</a
     >
     <span>·</span>
-    <a href="cadastro.html" class="link-option">Cadastre-se</a>
+    <a [routerLink]="['/cadastro']" class="link-option">Cadastre-se</a>
   </div>
 </div>

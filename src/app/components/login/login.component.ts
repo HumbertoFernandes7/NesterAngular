@@ -7,11 +7,12 @@ import {
 } from '@angular/forms';
 import { LoginService } from '../../services/login.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, RouterModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
@@ -22,6 +23,7 @@ export class LoginComponent implements OnInit {
     private formbuilder: FormBuilder,
     private loginService: LoginService,
     private toast: ToastrService,
+    private router: Router,
   ) {}
 
   ngOnInit(): void {
@@ -35,8 +37,8 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value).subscribe({
         next: (retorno) => {
-          console.log(retorno.token);
           this.toast.success('Login realizado com sucesso');
+          this.router.navigate(['/feed']);
         },
         error: (error) => {
           this.toast.error(error.error.message)
@@ -44,8 +46,4 @@ export class LoginComponent implements OnInit {
       });
     } 
   }
-
-
-
-
 }
