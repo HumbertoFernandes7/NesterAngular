@@ -24,7 +24,7 @@ export class UsuarioCadastroComponent implements OnInit {
     private formbuilder: FormBuilder,
     private usuarioService: UsuarioService,
     private router: Router,
-    private tostService: ToastrService
+    private toastService: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -41,11 +41,11 @@ export class UsuarioCadastroComponent implements OnInit {
       var usuario = this.cadastroUsuarioForm.getRawValue() as Usuario;
       this.usuarioService.cadastrarUsuario(usuario).subscribe({
         next: () => {
-          this.tostService.success("Usuário cadastrado com sucesso!");
+          this.toastService.success("Usuário cadastrado com sucesso!");
           this.router.navigate(['/login']);
         },
         error: (erro) => {
-          this.tostService.error(erro.error.message);
+          this.toastService.error(erro.error.message);
         },
       });
     }
