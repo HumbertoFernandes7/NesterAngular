@@ -5,8 +5,7 @@
   justify-content: center;       /* alinha itens no eixo horizontal :contentReference[oaicite:11]{index=11} */
   text-align: center;
   min-height: 100vh;             /* ocupa toda a altura da viewport :contentReference[oaicite:12]{index=12} */
-  padding: 40px 20px;
-  background-color: #15202B;     /* tema escuro :contentReference[oaicite:13]{index=13} */
+  padding: 40px 20px;   /* tema escuro :contentReference[oaicite:13]{index=13} */
   color: #FFF;
   font-family: 'Segoe UI', Tahoma, sans-serif; /* fonte com fallback :contentReference[oaicite:14]{index=14} */
 }

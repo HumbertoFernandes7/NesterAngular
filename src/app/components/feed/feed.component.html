@@ -1,73 +1,127 @@
 <div class="app-container">
-    <!-- Menu Lateral Esquerdo -->
-    <aside class="sidebar">
-      <div class="logo-wrapper">
-        <img src="assets/logo-nester.png" alt="Logo Nester" class="logo-img">
-      </div>
-      <nav class="nav-menu">
-        <a href="home-logged.html" class="nav-item active">Home</a>
-        <a href="perfil.html" class="nav-item">Perfil</a>
-        <a href="itens-salvos.html" class="nav-item">Itens Salvos</a>
-        <a href="configuracoes.html" class="nav-item">Configurações</a>
-      </nav>
-    </aside>
+  <!-- Menu Lateral Esquerdo -->
+  <aside class="sidebar">
+    <div class="logo-wrapper">
+      <img src="assets/logo-nester.png" alt="Logo Nester" class="logo-img">
+    </div>
+    <nav class="nav-menu">
+      <a href="home-logged.html" class="nav-item active"><ng-icon class="icones" name="heroHome" /></a>
+      <a href="perfil.html" class="nav-item"><ng-icon class="icones" name="heroUserCircle" /></a>
+      <a href="itens-salvos.html" class="nav-item"><ng-icon class="icones" name="heroBookmark" /></a>
+      <a href="configuracoes.html" class="nav-item"><ng-icon class="icones" name="heroCog8Tooth" /></a>
+    </nav>
+  </aside>
 
-<main class="main-feed">
-      <div class="feeds-wrapper">
-        <!-- Feed For you -->
-        <section class="feed-container">
-          <h2 class="feed-title">For you</h2>
-          <article class="post">
-            <header class="post-header">
-              <div class="post-user">
-                <!-- <img src="assets/img/user-avatar.png" alt="Avatar do usuário" class="post-avatar"> -->
-                <div class="post-user-info">
-                  <strong>Seu Nome</strong>
-                  <span>seunome 2h</span>
-                </div>
+  <main class="main-feed">
+    <div class="feeds-wrapper">
+      <!-- Feed For you -->
+      <section class="feed-container">
+        <h2 class="feed-title">For you</h2>
+        <article class="post">
+          <header class="post-header">
+            <div class="post-user">
+              <!-- <img src="assets/img/user-avatar.png" alt="Avatar do usuário" class="post-avatar"> -->
+              <div class="post-user-info">
+                <strong>Seu Nome</strong>
+                <span>seunome 2h</span>
               </div>
-            </header>
-            <div class="post-content">
-              <p>O que está acontecendo neste feed 1?</p>
             </div>
-            <footer class="post-actions">
-              <button class="action-btn">Curtir</button>
-              <button class="action-btn">Comentar</button>
-            </footer>
-          </article>
-        </section>
+          </header>
+          <div class="post-content">
+            <p>O que está acontecendo neste feed 1?</p>
+          </div>
+          <footer class="post-actions">
+            <button class="action-btn">Curtir</button>
+            <button class="action-btn">Comentar</button>
+          </footer>
+        </article>
+      </section>
 
-        <!-- Feed Seguindo -->
-        <section class="feed-container">
-          <h2 class="feed-title">Seguindo</h2>
-          <article class="post">
-            <header class="post-header">
-              <div class="post-user">
-                <!-- <img src="assets/img/user-avatar.png" alt="Avatar do usuário" class="post-avatar"> -->
-                <div class="post-user-info">
-                  <strong>Outro Usuário</strong>
-                  <span>outro · 1h</span>
-                </div>
+      <!-- Feed Seguindo -->
+      <section class="feed-container">
+        <h2 class="feed-title">Seguindo</h2>
+        <article class="post">
+          <header class="post-header">
+            <div class="post-user">
+              <!-- <img src="assets/img/user-avatar.png" alt="Avatar do usuário" class="post-avatar"> -->
+              <div class="post-user-info">
+                <strong>Outro Usuário</strong>
+                <span>outro · 1h</span>
               </div>
-            </header>
-            <div class="post-content">
-              <p>O que está acontecendo neste feed 2?</p>
             </div>
-            <footer class="post-actions">
-              <button class="action-btn">Curtir</button>
-              <button class="action-btn">Comentar</button>
-            </footer>
-          </article>
-        </section>
-      </div>
-    </main>
+          </header>
+          <div class="post-content">
+            <p>O que está acontecendo neste feed 2?</p>
+          </div>
+          <footer class="post-actions">
+            <button class="action-btn">Curtir</button>
+            <button class="action-btn">Comentar</button>
+          </footer>
+        </article>
+      </section>
+    </div>
+  </main>
 
-    <!-- Menu Lateral Direito -->
-    <aside class="right-sidebar">
-      <nav class="right-menu">
-        <a href="#" class="right-item">Explorar</a>
-        <a href="#" class="right-item">Notificações</a>
-        <a href="#" class="right-item">Mensagens</a>
-        <a href="#" class="right-item">Ajuda</a>
-      </nav>
-    </aside>
+  <!-- Menu Lateral Direito -->
+  <aside class="right-sidebar">
+    <nav class="right-menu">
+      <input type="text" placeholder="Buscar" class="search">
+
+      <div class="divider"></div>
+      <!-- Quem Seguir transformado em tabela -->
+      <div class="suggestions">
+        <h3 class="suggestions-title">Quem seguir</h3>
+
+        <table class="suggestions-table">
+          <thead>
+            <tr>
+              <th>Usuário</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="user-cell">
+                <div class="suggestion-info">
+                  <strong>Maria Silva</strong>
+                  <span>mariasilva</span>
+                </div>
+              </td>
+              <td class="action-cell">
+                <button class="follow-btn">Seguir</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="user-cell">
+                <div class="suggestion-info">
+                  <strong>João Souza</strong>
+                  <span>joaosouza</span>
+                </div>
+              </td>
+              <td class="action-cell">
+                <button class="follow-btn">Seguir</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="user-cell">
+                <div class="suggestion-info">
+                  <strong>Ana Pereira</strong>
+                  <span>anapereira</span>
+                </div>
+              </td>
+              <td class="action-cell">
+                <button class="follow-btn">Seguir</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <a href="#" class="right-item">Mensagens</a>
+      <a href="#" class="right-item">Ajuda</a>
+
+    </nav>
+  </aside>

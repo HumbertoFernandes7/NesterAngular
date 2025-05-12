@@ -4,7 +4,6 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(21, 32, 43, 0.75);
   z-index: 1;
 }
 
@@ -102,6 +101,7 @@
     margin: 20px;
     padding: 20px;
   }
+
   .container h1 {
     font-size: 20px;
   }
