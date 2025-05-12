@@ -1,0 +1,201 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+  color: #FFF;
+}
+
+/* Menu Lateral Esquerdo */
+.sidebar {
+  width: 250px;
+  background-color: #0a1117;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px 0;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+}
+.sidebar .logo-wrapper {
+  margin-bottom: 30px;
+}
+.sidebar .logo-img {
+  width: 60px;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.sidebar .logo-img:hover,
+.sidebar .logo-img:focus {
+  transform: scale(1.1);
+  outline: none;
+}
+.sidebar .nav-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.sidebar .nav-item {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #FFF;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+.sidebar .nav-item:hover {
+  background-color: rgba(29, 161, 242, 0.1);
+}
+.sidebar .nav-item.active {
+  color: #1DA1F2;
+  background-color: rgba(29, 161, 242, 0.15);
+}
+
+/* Área dos Feeds */
+.main-feed {
+  flex: 1;
+  background-color: #15202B;
+  padding: 20px;
+  overflow: hidden;
+}
+.main-feed .feeds-wrapper {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+}
+.main-feed .feed-container {
+  flex: 1;
+  background-color: #1b1c23;
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+}
+.main-feed .feed-title {
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  border-bottom: 1px solid #22303C;
+  padding-bottom: 8px;
+}
+.main-feed .post {
+  scroll-snap-align: start;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-height: calc(100% - 40px);
+}
+.main-feed .post-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.main-feed .post-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+.main-feed .post-user-info {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+}
+.main-feed .post-user-info span {
+  color: #8899A6;
+  font-size: 12px;
+}
+.main-feed .post-content {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.main-feed .post-content p {
+  color: #FFF;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.main-feed .post-image {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+.main-feed .post-actions {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+  border-top: 1px solid #22303C;
+}
+.main-feed .action-btn {
+  background: none;
+  border: none;
+  color: #1DA1F2;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+.main-feed .action-btn:hover {
+  background-color: rgba(29,161,242,0.1);
+}
+
+/* Menu Lateral Direito */
+.right-sidebar {
+  width: 200px;
+  background-color: #0a1117;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+  box-shadow: -2px 0 5px rgba(0,0,0,0.5);
+  align-items: center;
+}
+.right-sidebar .right-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.right-sidebar .right-item {
+  width: 100%;
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #FFF;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+.right-sidebar .right-item:hover {
+  background-color: rgba(29,161,242,0.1);
+}
+
+/* Scrollbars personalizadas */
+.feed-container::-webkit-scrollbar,
+.post-content::-webkit-scrollbar {
+  width: 8px;
+}
+.feed-container::-webkit-scrollbar-thumb,
+.post-content::-webkit-scrollbar-thumb {
+  background-color: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .app-container {
+    flex-direction: column;
+  }
+  .sidebar, .right-sidebar {
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px 0;
+    box-shadow: none;
+  }
+  .feeds-wrapper {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
