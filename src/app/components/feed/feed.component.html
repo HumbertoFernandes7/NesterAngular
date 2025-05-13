@@ -33,18 +33,18 @@
       <!-- Feed For you -->
       <section class="feed-container">
         <h2 class="feed-title">For you</h2>
-        <article class="post">
+        <article class="post" *ngFor="let postagem of postagens">
           <header class="post-header">
             <div class="post-user">
               <!-- <img src="assets/img/user-avatar.png" alt="Avatar do usuário" class="post-avatar"> -->
               <div class="post-user-info">
-                <strong>Seu Nome</strong>
-                <span>seunome 2h</span>
+                <strong>{{postagem.usuario.nome}}</strong>
+                <span>{{postagem.dataPostagem}}</span>
               </div>
             </div>
           </header>
           <div class="post-content">
-            <p>O que está acontecendo neste feed 1?</p>
+            <p>{{postagem.mensagem}}</p>
           </div>
           <footer class="post-actions">
             <button class="action-btn">Curtir</button>
