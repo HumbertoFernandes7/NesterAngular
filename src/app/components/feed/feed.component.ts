@@ -7,6 +7,7 @@ import { FeedService } from '../../services/feed.service';
 import { LoginService } from '../../services/login.service';
 import { RouterLink} from '@angular/router';
 import { Postagem } from '../../interfaces/postagem';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-feed',
@@ -23,7 +24,8 @@ export class FeedComponent implements OnInit {
     constructor( 
        public feedService: FeedService,
        private loginService: LoginService,
-       private datePipe: DatePipe
+       private datePipe: DatePipe,
+       private toastService: ToastrService,
      ){}
 
       ngOnInit(){
@@ -39,7 +41,7 @@ export class FeedComponent implements OnInit {
             });
           },
           error: (erro) => {
-            console.log(erro.error.mensagem);
+            this.toastService.error(erro.error.mensagem);
           }
         })
       }
