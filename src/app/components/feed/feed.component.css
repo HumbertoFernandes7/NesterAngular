@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   padding: 20px 0;
+
 }
 
 /* Logo fixa no topo */
@@ -43,11 +44,11 @@
   /* centraliza links verticalmente */
   width: 100%;
   align-items: center;
+  gap: 10px;
 }
 
-/* Itens de navegação */
-
-.sidebar .nav-item {
+.sidebar button {
+  all: unset; /* remove todos os estilos padrão */
   display: flex;
   width: auto;
   padding: 15px 20px;
@@ -56,15 +57,13 @@
   border-radius: 20px;
   transition: background-color 0.2s;
   align-items: center;
+  cursor: pointer;
+  text-align: left;
 }
 
-.sidebar .nav-item:hover {
+/* Hover */
+.sidebar button:hover {
   background-color: rgba(29, 161, 242, 0.1);
-}
-
-.sidebar .nav-item.active {
-  color: #1DA1F2;
-  background-color: rgba(29, 161, 242, 0.15);
 }
 
 /* Área dos Feeds */

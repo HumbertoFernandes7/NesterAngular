@@ -5,10 +5,11 @@
       <img src="assets/logo-nester.png" alt="Logo Nester" class="logo-img">
     </div>
     <nav class="nav-menu">
-      <a href="home-logged.html" class="nav-item active"><ng-icon class="icones" name="heroHome" /></a>
-      <a href="perfil.html" class="nav-item"><ng-icon class="icones" name="heroUserCircle" /></a>
-      <a href="itens-salvos.html" class="nav-item"><ng-icon class="icones" name="heroBookmark" /></a>
-      <a href="configuracoes.html" class="nav-item"><ng-icon class="icones" name="heroCog8Tooth" /></a>
+      <button ><ng-icon title="Home" name="heroHome" /></button>
+      <button ><ng-icon title="Perfil" name="heroUserCircle" /></button>
+      <button (click)="abrirModalPublicacao()"><ng-icon title="Fazer postagem" name="heroPlusCircle" /></button>
+      <button ><ng-icon title="Itens Salvos" name="heroBookmark" /></button>
+      <button ><ng-icon title="Configurações" name="heroCog8Tooth" /></button>
     </nav>
   </aside>
 
@@ -125,3 +126,6 @@
 
     </nav>
   </aside>
+<div *ngIf = "feedService.publicacaoModal" >
+  <app-postagem></app-postagem>
+</div>
