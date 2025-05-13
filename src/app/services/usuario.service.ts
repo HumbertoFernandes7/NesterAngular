@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Usuario } from '../modulos/usuario';
+import { Usuario } from '../interfaces/usuario';
 import { environment } from '../../environments/environment.desenv';
 
 const URL_API = environment.api_url + "/usuarios";

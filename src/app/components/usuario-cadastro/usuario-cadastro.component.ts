@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { UsuarioService } from '../../services/usuario.service';
-import { Usuario } from '../../modulos/usuario';
+import { Usuario } from '../../interfaces/usuario';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 

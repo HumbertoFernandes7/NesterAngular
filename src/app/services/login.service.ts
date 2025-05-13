@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Login } from '../modulos/login';
-import { Token } from '../modulos/token';
+import { Login } from '../interfaces/login';
+import { Token } from '../interfaces/token';
 import { environment } from '../../environments/environment.desenv';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs';
@@ -23,5 +23,14 @@ export class LoginService {
 
   logout() {
     localStorage.removeItem('token');
+  }
+
+  isLoggedIn() {
+    const token = localStorage.getItem('token');
+    if (token) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
