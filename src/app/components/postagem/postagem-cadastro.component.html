@@ -9,16 +9,18 @@
     </div>
 
     <!-- body -->
-    <div class="modal-body">
-      <textarea class="areadetexto"
+    <div class="modal-body" [formGroup]="cadastroPostagemForm">
+      <textarea  c
+        lass="areadetexto"
         rows="4"
         placeholder="O que está acontecendo?"
+        formControlName="mensagem"
       ></textarea>
     </div>
 
     <!-- footer -->
     <div class="modal-footer">
-      <button class="btn-primary">Postar</button>
+      <button (click)="cadastrarPostagem()" class="btn-primary">Postar</button>
     </div>
   </div>
 </div>

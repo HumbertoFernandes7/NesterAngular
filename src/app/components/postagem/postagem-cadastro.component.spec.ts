@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostagemComponent } from './postagem.component';
+import { PostagemCadastoComponent } from "./postagem-cadastro.component";
 
-describe('PostagemComponent', () => {
-  let component: PostagemComponent;
-  let fixture: ComponentFixture<PostagemComponent>;
+describe('PostagemCadastroComponent', () => {
+  let component: PostagemCadastoComponent;
+  let fixture: ComponentFixture<PostagemCadastoComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PostagemComponent]
+      imports: [PostagemCadastoComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PostagemComponent);
+    fixture = TestBed.createComponent(PostagemCadastoComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

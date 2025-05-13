@@ -1,14 +1,15 @@
 import { Component } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroUsers } from '@ng-icons/heroicons/outline';
-import { PostagemComponent } from "../postagem/postagem.component";
+import { PostagemCadastoComponent } from "../postagem/postagem-cadastro.component";
 import { NgIf } from '@angular/common';
 import { FeedService } from '../../services/feed.service';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-feed',
   standalone: true,
-  imports: [NgIcon, PostagemComponent, NgIf],
+  imports: [NgIcon, PostagemCadastoComponent, NgIf],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.css',
   viewProviders: [provideIcons({heroUsers})]
@@ -16,11 +17,15 @@ import { FeedService } from '../../services/feed.service';
 export class FeedComponent {
 
     constructor( 
-       public feedService: FeedService
+       public feedService: FeedService,
+       private loginService: LoginService
      ){}
    
      abrirModalPublicacao(){
        this.feedService.abrirModal();
      }
 
+     deslogar(){
+      this.loginService.logout()
+     }
 }

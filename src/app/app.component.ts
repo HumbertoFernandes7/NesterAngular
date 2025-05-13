@@ -1,7 +1,6 @@
-import { NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { NgIcon, provideIcons } from '@ng-icons/core';
+import { provideIcons } from '@ng-icons/core';
 import { heroUsers, heroHome, heroUserCircle, heroBookmark, heroCog8Tooth, heroPlusCircle, heroXMark } from '@ng-icons/heroicons/outline';
 
 @Component({

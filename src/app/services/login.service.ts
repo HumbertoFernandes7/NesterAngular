@@ -17,6 +17,7 @@ export class LoginService {
     return this.httpCLiente.post<Token>(`${URL_API}/login`, login).pipe(
       tap((retorno) => {
         localStorage.setItem('token', retorno.token);
+        localStorage.setItem('tipo', retorno.tipo);
       })
     );
   }
