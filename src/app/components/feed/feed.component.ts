@@ -5,11 +5,12 @@ import { PostagemCadastoComponent } from "../postagem/postagem-cadastro.componen
 import { NgIf } from '@angular/common';
 import { FeedService } from '../../services/feed.service';
 import { LoginService } from '../../services/login.service';
+import { RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-feed',
   standalone: true,
-  imports: [NgIcon, PostagemCadastoComponent, NgIf],
+  imports: [NgIcon, PostagemCadastoComponent, NgIf, RouterLink],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.css',
   viewProviders: [provideIcons({heroUsers})]
