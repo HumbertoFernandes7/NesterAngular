@@ -1,0 +1,146 @@
+/* 1. Overlay escuro */
+.overlay {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+ 
+  z-index: 1;
+}
+/* 2. Container centralizado (modal) */
+.container {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 400px;
+  margin: auto;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: #000;
+  border-radius: 20px;
+  padding: 30px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+/* 3. Logo */
+.logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+.logo-img {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.logo-img:hover,
+.logo-img:focus {
+  transform: scale(1.1);
+  outline: none;
+}
+
+/* 4. Título e instrução */
+.container h1 {
+  font-size: 24px;
+  color: #FFF;
+  margin-bottom: 10px;
+}
+.container p {
+  font-size: 14px;
+  color: #8899A6;
+  margin-bottom: 20px;
+}
+
+/* 5. Formulário */
+/* Garante que todos os form-groups fiquem alinhados à esquerda */
+.reset-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  /* Override do text-align do container */
+  text-align: left;
+}
+
+/* Cada label e input numa linha própria */
+.reset-form .form-group {
+  display: block;
+  width: 100%;
+}
+
+/* Inputs full-width e pill-shaped */
+.reset-form .form-group input {
+  display: block;           /* torna o input um bloco */
+  width: 100%;              /* ocupa 100% do .form-group */
+  padding: 12px 20px;       /* ajuste horizontal para mais conforto */
+  font-size: 15px;
+  color: #FFF;
+  background-color: #192734;
+  border: none;
+  border-radius: 9999px;    /* pill-shape completo */
+  transition: background-color 0.2s, box-shadow 0.2s;
+  box-sizing: border-box;
+}
+
+/* Placeholder e focus */
+.reset-form .form-group input::placeholder {
+  color: #8899A6;
+}
+.reset-form .form-group input:focus {
+  background-color: #22303C;
+  box-shadow: 0 0 0 2px rgba(29,161,242,0.5);
+  outline: none;
+}
+
+/* 6. Botão “Enviar Link” */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #FFF;
+  background-color: #1DA1F2;
+  border: none;
+  border-radius: 9999px;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+.btn-submit:hover,
+.btn-submit:focus {
+  background-color: #1A91DA;
+  box-shadow: 0 4px 12px rgba(29,161,242,0.5);
+}
+
+/* 7. Links auxiliares */
+.options {
+  margin-top: 20px;
+  font-size: 14px;
+}
+.options .link-option {
+  color: #1DA1F2;
+  text-decoration: none;
+  margin: 0 5px;
+  transition: color 0.2s;
+}
+.options .link-option:hover {
+  color: #1A91DA;
+}
+.options span {
+  color: #8899A6;
+}
+
+/* 8. Responsividade */
+@media (max-width: 420px) {
+  .container {
+    padding: 20px;
+    margin: 0 10px;
+  }
+  .logo-img {
+    width: 60px;
+    height: 60px;
+  }
+  .container h1 {
+    font-size: 20px;
+  }
+}

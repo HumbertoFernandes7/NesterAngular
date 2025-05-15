@@ -1,0 +1,27 @@
+<!-- reset-senha.component.html -->
+<div class="overlay"></div>
+<div class="container">
+  <div class="logo-wrapper">
+    <img src="assets/logo-nester.png" alt="Logo Nester" class="logo-img" />
+  </div>
+  <h1>Redefinir Senha</h1>
+  <p>Digite seu email para receber o link de redefinição de senha.</p>
+  <form class="reset-form">
+    <div class="form-group">
+      <label for="emailReset">Email</label>
+      <input
+        type="email"
+        id="emailReset"
+        name="emailReset"
+        placeholder="seu@email.com"
+        required
+      />
+    </div>
+    <button type="submit" class="btn-submit">Enviar Link</button>
+  </form>
+  <div class="options">
+    <a [routerLink]="['/login']" class="link-option">Voltar ao Login</a>
+    <span>·</span>
+    <a [routerLink]="['/cadastro']" class="link-option">Cadastre-se</a>
+  </div>
+</div>

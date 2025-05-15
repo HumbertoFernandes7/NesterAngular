@@ -5,6 +5,7 @@ import { LoginComponent } from './components/login/login.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { guestGuard } from './guards/guest.guard';
 import { authGuard } from './guards/auth.guard';
+import { EsqueciMinhaSenhaComponent } from './components/esqueci-minha-senha/esqueci-minha-senha.component';
 
 export const routes: Routes = [
     {
@@ -17,9 +18,12 @@ export const routes: Routes = [
         path: 'cadastro', component: UsuarioCadastroComponent,
     },
     {
+        path: 'esqueci-minha-senha', component: EsqueciMinhaSenhaComponent,
+    },
+    {
         path: 'login', component: LoginComponent, canActivate: [guestGuard],
     },
     {
         path: 'feed', component: FeedComponent, canActivate: [authGuard],
-    }
+    }, 
 ];
