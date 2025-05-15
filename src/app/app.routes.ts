@@ -6,6 +6,7 @@ import { FeedComponent } from './components/feed/feed.component';
 import { guestGuard } from './guards/guest.guard';
 import { authGuard } from './guards/auth.guard';
 import { EsqueciMinhaSenhaComponent } from './components/esqueci-minha-senha/esqueci-minha-senha.component';
+import { ResetSenhaComponent } from './components/reset-senha/reset-senha.component';
 
 export const routes: Routes = [
     {
@@ -26,4 +27,7 @@ export const routes: Routes = [
     {
         path: 'feed', component: FeedComponent, canActivate: [authGuard],
     }, 
+    {
+        path: 'recuperar-senha/:hash/:id', component: ResetSenhaComponent,
+    }
 ];

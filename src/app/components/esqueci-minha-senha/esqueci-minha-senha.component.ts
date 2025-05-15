@@ -41,9 +41,9 @@ export class EsqueciMinhaSenhaComponent implements OnInit {
         next: (retorno) => {
           this.loading = false;
           this.toast.success('Email enviado com sucesso');
-          this.router.navigate(['/reset-senha-hash']);
+          this.router.navigate(['/login']);
         },
-        error: (error) => {
+        error: (error) => {this.loading = false;
           this.loading = false;
           this.toast.error(error.error.message)
         },
