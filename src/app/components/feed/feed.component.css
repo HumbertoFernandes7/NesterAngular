@@ -6,18 +6,14 @@
 
 /* Menu Lateral Esquerdo */
 .sidebar {
-  width: 250px;
-  height: 100vh;
+  width: 100px;
   background-color: #0a1117;
   display: flex;
   flex-direction: column;
   padding: 20px 0;
-
 }
 
-/* Logo fixa no topo */
 .sidebar .logo-wrapper {
-  flex: 0 0 auto;
   margin-bottom: 30px;
   text-align: center;
 }
@@ -27,30 +23,24 @@
   border-radius: 50%;
   transition: transform 0.2s;
 }
-
 .sidebar .logo-img:hover,
 .sidebar .logo-img:focus {
   transform: scale(1.1);
   outline: none;
 }
 
-/* Menu de navegação centralizado verticalmente */
 .sidebar .nav-menu {
-  flex: 1 0 auto;
-  /* ocupa o espaço restante */
+  flex: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  /* centraliza links verticalmente */
-  width: 100%;
   align-items: center;
   gap: 10px;
 }
 
 .sidebar button {
-  all: unset; /* remove todos os estilos padrão */
+  all: unset;
   display: flex;
-  width: auto;
   padding: 15px 20px;
   font-size: 2em;
   color: #FFF;
@@ -60,8 +50,6 @@
   cursor: pointer;
   text-align: left;
 }
-
-/* Hover */
 .sidebar button:hover {
   background-color: rgba(29, 161, 242, 0.1);
 }
@@ -69,17 +57,33 @@
 /* Área dos Feeds */
 .main-feed {
   flex: 1;
-  padding: 20px;
+  padding: 10px 30px 0px 250px ;
   overflow: hidden;
 }
 
-.main-feed .feeds-wrapper {
+.feeds-wrapper {
   display: flex;
   gap: 20px;
   height: 100%;
 }
 
-.main-feed .feed-container {
+.feed-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.feed-column .feed-title {
+  font-size: 30px;
+  font-weight: bold;
+  text-align: center;
+  color: #FFF;
+  padding: 10px 10px 20px;
+  margin: 0;
+}
+
+.feed-container {
   flex: 1;
   background-color: #1b1c23;
   border-radius: 20px;
@@ -87,79 +91,72 @@
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 30px;
   overflow-y: auto;
   scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.feed-container::-webkit-scrollbar {
+  display: none;
 }
 
-.main-feed .feed-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 10px;
-  border-bottom: 1px solid #22303C;
-  padding-bottom: 8px;
-  text-align: center;
-}
-
-.main-feed .post {
+.post {
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   gap: 15px;
   max-height: calc(100% - 40px);
+  padding: 20px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
-
-.main-feed .post-header {
+.post-header {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-
-.main-feed .post-avatar {
+.post-avatar {
   width: 48px;
   height: 48px;
   border-radius: 50%;
 }
-
-.main-feed .post-user-info {
+.post-user-info {
   display: flex;
   flex-direction: column;
   font-size: 14px;
 }
-
-.main-feed .post-user-info span {
+.post-user-info span {
   color: #8899A6;
   font-size: 12px;
 }
 
-.main-feed .post-content {
+.post-content {
   flex: 1;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
-
-.main-feed .post-content p {
+.post-content p {
   color: #FFF;
   font-size: 16px;
   line-height: 1.5;
 }
 
-.main-feed .post-image {
+.post-image {
   width: 100%;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
 }
 
-.main-feed .post-actions {
+.post-actions {
   display: flex;
   justify-content: space-around;
   padding-top: 10px;
   border-top: 1px solid #22303C;
 }
 
-.main-feed .action-btn {
+.action-btn {
   background: none;
   border: none;
   color: #1DA1F2;
@@ -168,19 +165,32 @@
   padding: 8px 12px;
   border-radius: 8px;
   transition: background-color 0.2s;
+  font-size: 20px;
+}
+.action-btn:hover {
+  background-color: rgba(29, 161, 242, 0.1);
 }
 
-.main-feed .action-btn:hover {
-  background-color: rgba(29, 161, 242, 0.1);
+.action-btn p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+}
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1em;
 }
 
 /* Menu Lateral Direito */
 .right-sidebar {
-  width: 250px;
+  width: 500px;
   background-color: #0a1117;
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  padding: 90px 20px 0 20px;
   align-items: center;
 }
 
@@ -199,12 +209,10 @@
   transition: background-color 0.2s;
   text-align: right;
 }
-
 .right-sidebar .right-item:hover {
   background-color: rgba(29, 161, 242, 0.1);
 }
 
-/* Estilo para o campo de busca */
 .right-sidebar .search {
   width: 80%;
   margin: 0 auto 20px;
@@ -217,74 +225,55 @@
   outline: none;
   transition: background-color 0.2s, border-color 0.2s;
 }
-
-/* Placeholder mais suave */
 .right-sidebar .search::placeholder {
   color: #c8cfd4;
 }
-
-/* Efeito de foco */
 .right-sidebar .search:focus {
   background-color: #15202B;
   border-color: #1DA1F2;
 }
 
-/* Sugestões “Quem seguir” */
 .suggestions {
-  padding: 0 20px 20px;
+  padding: 20px 20px 20px;
 }
-
 .suggestions-title {
   color: #FFF;
   font-size: 18px;
   margin-bottom: 12px;
   text-align: left;
 }
-
 .suggestions-table {
   width: 100%;
   border-collapse: collapse;
 }
-
 .suggestions-table th,
 .suggestions-table td {
   padding: 8px 0;
 }
-
-.suggestions-table thead {
-  display: none;
-  /* ocultamos cabeçalho padrão */
-}
-
 .user-cell {
   display: flex;
   align-items: center;
   gap: 10px;
 }
-
 .suggestion-avatar {
   width: 36px;
   height: 36px;
   border-radius: 50%;
   object-fit: cover;
 }
-
 .suggestion-info strong {
   display: block;
   color: #FFF;
   font-size: 14px;
 }
-
 .suggestion-info span {
   display: block;
   color: #8899A6;
   font-size: 12px;
 }
-
 .action-cell {
   text-align: right;
 }
-
 .follow-btn {
   background-color: #1DA1F2;
   color: #FFF;
@@ -295,65 +284,8 @@
   cursor: pointer;
   transition: background-color 0.2s;
 }
-
 .follow-btn:hover {
   background-color: rgba(29, 161, 242, 0.8);
-}
-
-/* restante do .right-sidebar e .right-item conforme já existia */
-.right-sidebar {
-  width: 250px;
-  background-color: #0a1117;
-  display: flex;
-  flex-direction: column;
-  padding: 20px 0;
-  align-items: center;
-}
-
-.right-sidebar .right-menu {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.right-sidebar .right-item {
-  padding: 12px 20px;
-  font-size: 16px;
-  color: #FFF;
-  text-decoration: none;
-  border-radius: 8px;
-  transition: background-color 0.2s;
-  text-align: right;
-}
-
-.right-sidebar .right-item:hover {
-  background-color: rgba(29, 161, 242, 0.1);
-}
-
-/* Linha divisória no menu lateral direito */
-.right-menu .divider {
-  width: 90%;
-  /* ocupa a maior parte da largura */
-  height: 1px;
-  /* espessura da linha */
-  background-color: #22303C;
-  /* mesmo tom das bordas internas */
-  margin: 20px auto;
-  /* espaço acima e abaixo + centraliza */
-}
-
-
-
-/* Scrollbars personalizadas */
-.feed-container::-webkit-scrollbar,
-.post-content::-webkit-scrollbar {
-  width: 8px;
-}
-
-.feed-container::-webkit-scrollbar-thumb,
-.post-content::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
 }
 
 /* Responsividade */
@@ -361,7 +293,6 @@
   .app-container {
     flex-direction: column;
   }
-
   .sidebar,
   .right-sidebar {
     width: 100%;
@@ -370,7 +301,6 @@
     padding: 10px 0;
     box-shadow: none;
   }
-
   .feeds-wrapper {
     flex-direction: column;
     gap: 15px;

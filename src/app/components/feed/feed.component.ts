@@ -56,5 +56,5 @@ export class FeedComponent implements OnInit {
 
       formatarData(data: Date) {
         return this.datePipe.transform(data, 'dd/MM/yyyy');
-      }
+      } 
 }
