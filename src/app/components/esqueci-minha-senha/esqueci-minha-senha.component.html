@@ -6,7 +6,7 @@
   </div>
   <h1>Redefinir Senha</h1>
   <p>Digite seu email para receber o link de redefinição de senha.</p>
-  <form class="reset-form">
+  <form (ngSubmit)="enviarEmail()" [formGroup]="resetSenhaForm" class="reset-form">
     <div class="form-group">
       <label for="emailReset">Email</label>
       <input
@@ -14,14 +14,20 @@
         id="emailReset"
         name="emailReset"
         placeholder="seu@email.com"
+        formControlName="email"
         required
       />
     </div>
-    <button type="submit" class="btn-submit">Enviar Link</button>
+    
+    <button *ngIf="!loading" type="submit" class="btn-submit">Enviar</button>
+    <div *ngIf="loading" class="spinner"></div>
   </form>
   <div class="options">
     <a [routerLink]="['/login']" class="link-option">Voltar ao Login</a>
     <span>·</span>
     <a [routerLink]="['/cadastro']" class="link-option">Cadastre-se</a>
   </div>
+  
 </div>
+
+

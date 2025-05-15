@@ -144,3 +144,18 @@
     font-size: 20px;
   }
 }
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(255, 255, 255, 0.3);  /* cor clara semi-transparente */
+  border-top-color: #1DA1F2;                    /* destaque colorido */
+  border-radius: 50%;                           /* torna circular */
+  animation: spin 1s linear infinite;           /* animação de rotação contínua */
+  margin: auto;                                 /* centraliza em containers flex/fixed */
+}
+
+/* Keyframes que gira o elemento */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
