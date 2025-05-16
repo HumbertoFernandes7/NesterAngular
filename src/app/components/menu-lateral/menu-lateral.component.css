@@ -1,0 +1,93 @@
+/* Menu Lateral Esquerdo */
+.app-container {
+  display: flex;
+  height: 100vh;
+  color: #FFF;
+}
+
+.sidebar {
+  width: 100px;
+  background-color: #0a1117;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.sidebar .logo-wrapper {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.sidebar .logo-img {
+  width: 60px;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.sidebar .logo-img:hover,
+.sidebar .logo-img:focus {
+  transform: scale(1.1);
+  outline: none;
+}
+
+.sidebar .nav-menu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.sidebar button {
+  all: unset;
+  display: flex;
+  padding: 15px 20px;
+  font-size: 2em;
+  color: #FFF;
+  border-radius: 20px;
+  transition: background-color 0.2s;
+  align-items: center;
+  cursor: pointer;
+  text-align: left;
+}
+.sidebar button:hover {
+  background-color: rgba(29, 161, 242, 0.1);
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: 70px;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #0a1117;
+    z-index: 1000;
+  }
+
+  .sidebar .logo-wrapper {
+    display: none; /* Esconde o logo no mobile */
+  }
+
+  .sidebar .nav-menu {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    gap: 0;
+  }
+
+  .sidebar button {
+    font-size: 1.5em;
+    padding: 10px;
+    border-radius: 10px;
+  }
+}

@@ -1,38 +1,17 @@
 <div class="app-container">
+
+  <app-menu-mobile></app-menu-mobile>
+
   <!-- Menu Lateral Esquerdo -->
-  <aside class="sidebar">
-    <div class="logo-wrapper">
-      <img src="assets/logo-nester.png" alt="Logo Nester" class="logo-img" />
-    </div>
-    <nav class="nav-menu">
-      <button [routerLink]="['/feed']">
 
-        <ng-icon title="Home" name="heroHome" />
-      </button>
+  <app-menu-lateral></app-menu-lateral>
 
-      <button>
-        <ng-icon title="Perfil" name="heroUserCircle" />
-      </button>
-
-      <button (click)="abrirModalPublicacao()">
-        <ng-icon title="Fazer postagem" name="heroPlusCircle" />
-      </button>
-
-      <button>
-        <ng-icon title="Itens Salvos" name="heroBookmark" />
-      </button>
-
-      <button>
-        <ng-icon title="Configurações" name="heroCog8Tooth" />
-      </button>
-    </nav>
-  </aside>
 
   <main class="main-feed">
     <div class="feeds-wrapper">
       <!-- Feed For you -->
-      <div class="feed-column">
-        <h2 class="feed-title">For You</h2>
+      <div class="feed-column" *ngIf="feed1">
+        <a (click)="trocarAssuntoFeed()"><h2 class="feed-title">Para Você</h2></a>
         <section class="feed-container">
 
           <article class="post" *ngFor="let postagem of postagens">
@@ -62,9 +41,8 @@
         </section>
       </div>
       <!-- Feed Seguindo -->
-
-      <div class="feed-column">
-        <h2 class="feed-title">For You</h2>
+      <div class="feed-column" *ngIf="feed2">
+        <a (click)="trocarAssuntoFeed()"><h2 class="feed-title">Seguindo</h2></a>
         <section class="feed-container">
           <article class="post">
             <header class="post-header">
@@ -96,71 +74,11 @@
     </div>
   </main>
 
-  <!-- Menu Lateral Direito -->
-  <aside class="right-sidebar">
-    <nav class="right-menu">
 
-      
-        <input type="text" placeholder="Buscar" class="search" />
 
-      <div class="divider"></div>
-      <!-- Quem Seguir transformado em tabela -->
-      <div class="suggestions">
-        <h3 class="suggestions-title">Quem seguir</h3>
-
-        <table class="suggestions-table">
-          <thead>
-            <tr>
-              <th>Usuário</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="user-cell">
-                <div class="suggestion-info">
-                  <strong>Maria Silva</strong>
-                  <span>mariasilva</span>
-                </div>
-              </td>
-              <td class="action-cell">
-                <button class="follow-btn">Seguir</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="user-cell">
-                <div class="suggestion-info">
-                  <strong>João Souza</strong>
-                  <span>joaosouza</span>
-                </div>
-              </td>
-              <td class="action-cell">
-                <button class="follow-btn">Seguir</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="user-cell">
-                <div class="suggestion-info">
-                  <strong>Ana Pereira</strong>
-                  <span>anapereira</span>
-                </div>
-              </td>
-              <td class="action-cell">
-                <button class="follow-btn">Seguir</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <div class="divider"></div>
-
-      <a href="#" class="right-item">Mensagens</a>
-      <a href="#" class="right-item" (click)="deslogar()">Logout</a>
-    </nav>
-  </aside>
   <div *ngIf="feedService.publicacaoModal">
     <app-postagem></app-postagem>
   </div>
+
+  <app-menu-lateral-direito class="app-menu-lateral-direito"></app-menu-lateral-direito>
 </div>

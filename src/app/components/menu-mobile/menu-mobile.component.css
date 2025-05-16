@@ -1,0 +1,66 @@
+
+/* Estilo padrão (desktop) */
+.mobile-header {
+  display: none;
+}
+
+/* Estilo para o menu lateral (já existente) */
+.nav-bar {
+  width: 100px;
+  background-color: #0a1117;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.logo-wrapper {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.logo-img {
+  width: 60px;
+  border-radius: 50%;
+  transition: transform 0.2s;
+}
+.logo-img:hover,
+.logo-img:focus {
+  transform: scale(1.1);
+  outline: none;
+}
+
+/* Estilo para o header no mobile */
+@media (max-width: 768px) {
+  .mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    background-color: #0a1117;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1001;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+  }
+
+  .mobile-header .logo-wrapper {
+    margin: 0;
+  }
+
+  .mobile-header .logo-img {
+    width: 50px;
+  }
+
+  /* Oculta o menu lateral no mobile */
+  .nav-bar {
+    display: none;
+  }
+
+  /* Ajuste no conteúdo principal, se houver */
+  .app-container {
+    margin-top: 60px;
+    flex-direction: column;
+  }
+}

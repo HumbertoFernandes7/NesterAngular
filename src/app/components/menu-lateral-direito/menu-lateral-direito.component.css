@@ -1,0 +1,111 @@
+/* Menu Lateral Direito */
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  color: #FFF;
+}
+
+.right-sidebar {
+  width: 500px;
+  background-color: #0a1117;
+  display: flex;
+  flex-direction: column;
+  padding: 90px 20px 0 20px;
+  align-items: center;
+}
+
+.right-sidebar .right-menu {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.right-sidebar .right-item {
+  padding: 12px 20px;
+  font-size: 16px;
+  color: #FFF;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  text-align: right;
+}
+.right-sidebar .right-item:hover {
+  background-color: rgba(29, 161, 242, 0.1);
+}
+
+.right-sidebar .search {
+  width: 80%;
+  margin: 0 auto 20px;
+  padding: 10px 15px;
+  background-color: #1b1c23;
+  border: 1px solid #22303C;
+  color: #FFF;
+  font-size: 14px;
+  border-radius: 20px;
+  outline: none;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+.right-sidebar .search::placeholder {
+  color: #c8cfd4;
+}
+.right-sidebar .search:focus {
+  background-color: #15202B;
+  border-color: #1DA1F2;
+}
+
+.suggestions {
+  padding: 20px 20px 20px;
+}
+.suggestions-title {
+  color: #FFF;
+  font-size: 18px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+.suggestions-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.suggestions-table th,
+.suggestions-table td {
+  padding: 8px 0;
+}
+.user-cell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.suggestion-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+.suggestion-info strong {
+  display: block;
+  color: #FFF;
+  font-size: 14px;
+}
+.suggestion-info span {
+  display: block;
+  color: #8899A6;
+  font-size: 12px;
+}
+.action-cell {
+  text-align: right;
+}
+.follow-btn {
+  background-color: #1DA1F2;
+  color: #FFF;
+  border: none;
+  padding: 6px 12px;
+  font-size: 13px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+.follow-btn:hover {
+  background-color: rgba(29, 161, 242, 0.8);
+}
+ 

@@ -1,0 +1,65 @@
+<div class="app-container">
+<aside class="right-sidebar">
+    <nav class="right-menu">
+
+      
+        <input type="text" placeholder="Buscar" class="search" />
+
+      <div class="divider"></div>
+      <!-- Quem Seguir transformado em tabela -->
+      <div class="suggestions">
+        <h3 class="suggestions-title">Quem seguir</h3>
+
+        <table class="suggestions-table">
+          <thead>
+            <tr>
+              <th>Usuário</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="user-cell">
+                <div class="suggestion-info">
+                  <strong>Maria Silva</strong>
+                  <span>mariasilva</span>
+                </div>
+              </td>
+              <td class="action-cell">
+                <button class="follow-btn">Seguir</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="user-cell">
+                <div class="suggestion-info">
+                  <strong>João Souza</strong>
+                  <span>joaosouza</span>
+                </div>
+              </td>
+              <td class="action-cell">
+                <button class="follow-btn">Seguir</button>
+              </td>
+            </tr>
+            <tr>
+              <td class="user-cell">
+                <div class="suggestion-info">
+                  <strong>Ana Pereira</strong>
+                  <span>anapereira</span>
+                </div>
+              </td>
+              <td class="action-cell">
+                <button class="follow-btn">Seguir</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="divider"></div>
+
+      <a href="#" class="right-item">Mensagens</a>
+      <a href="#" class="right-item" (click)="deslogar()">Logout</a>
+    </nav>
+  </aside>
+</div>
