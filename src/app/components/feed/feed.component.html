@@ -1,40 +1,36 @@
 <div class="app-container">
-
   <app-menu-mobile></app-menu-mobile>
-
-  <!-- Menu Lateral Esquerdo -->
-
   <app-menu-lateral></app-menu-lateral>
-
-
   <main class="main-feed">
     <div class="feeds-wrapper">
       <!-- Feed For you -->
       <div class="feed-column" *ngIf="feed1">
-        <a (click)="trocarAssuntoFeed()"><h2 class="feed-title">Para Você</h2></a>
+        <a (click)="trocarAssuntoFeed()"
+          ><h2 class="feed-title">Para Você</h2></a
+        >
         <section class="feed-container">
-
           <article class="post" *ngFor="let postagem of postagens">
             <header class="post-header">
               <div class="post-user">
                 <!-- <img src="assets/img/user-avatar.png" alt="Avatar do usuário" class="post-avatar"> -->
                 <div class="post-user-info">
-                  <strong>{{postagem.usuario.nome}}</strong>
-                  <span>{{postagem.dataPostagem}}</span>
+                  <strong>{{ postagem.usuario.nome }}</strong>
+                  <span>{{ postagem.dataPostagem }}</span>
                 </div>
               </div>
             </header>
             <div class="post-content">
-              <p>{{postagem.mensagem}}</p>
+              <p>{{ postagem.mensagem }}</p>
             </div>
             <footer class="post-actions">
               <button class="action-btn">
-                <p>
-                  <ng-icon class="btn-icon" name="heroHeart" />100.000
-                </p>
+                <p><ng-icon class="btn-icon" name="heroHeart" />100.000</p>
               </button>
               <button class="action-btn">
-                <ng-icon class="icones-publicacao " name="heroChatBubbleOvalLeft" />
+                <ng-icon
+                  class="icones-publicacao"
+                  name="heroChatBubbleOvalLeft"
+                />
               </button>
             </footer>
           </article>
@@ -42,7 +38,9 @@
       </div>
       <!-- Feed Seguindo -->
       <div class="feed-column" *ngIf="feed2">
-        <a (click)="trocarAssuntoFeed()"><h2 class="feed-title">Seguindo</h2></a>
+        <a (click)="trocarAssuntoFeed()"
+          ><h2 class="feed-title">Seguindo</h2></a
+        >
         <section class="feed-container">
           <article class="post">
             <header class="post-header">
@@ -59,13 +57,10 @@
             </div>
             <footer class="post-actions">
               <button class="action-btn">
-                <p>
-                  <ng-icon class="btn-icon" name="heroHeart" />100.000
-                </p>
+                <p><ng-icon class="btn-icon" name="heroHeart" />100.000</p>
               </button>
               <button class="action-btn">
                 <ng-icon class="btn-icon" name="heroChatBubbleOvalLeft" />
-
               </button>
             </footer>
           </article>
@@ -73,12 +68,11 @@
       </div>
     </div>
   </main>
-
-
-
   <div *ngIf="feedService.publicacaoModal">
     <app-postagem></app-postagem>
   </div>
 
-  <app-menu-lateral-direito class="app-menu-lateral-direito"></app-menu-lateral-direito>
+  <app-menu-lateral-direito
+    class="app-menu-lateral-direito"
+  ></app-menu-lateral-direito>
 </div>
