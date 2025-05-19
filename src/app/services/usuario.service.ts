@@ -22,6 +22,10 @@ export class UsuarioService {
    return this.http.get<Usuario[]>(`${URL_API}/buscar?por=${por}`);
   }
 
+   buscarFotoUsuario(id: number) {
+    return this.http.get(`${URL_API}/foto-perfil/${id}`, { responseType: 'blob' });
+  }
+
   enviarEmailResetSenha(email: Email) {
     return this.http.post<Email>(`${URL_API}/enviar-email`, email);
   }

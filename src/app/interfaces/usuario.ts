@@ -3,5 +3,6 @@ export interface Usuario {
     nome: string;
     email: string;
     dataNascimento: Date;
+    foto: string;
     senha: string;
 }

@@ -17,12 +17,13 @@ import { Router } from '@angular/router';
 export class MenuLateralDireitoComponent {
   searchInput = '';
   usuarios: Usuario[] = [];
+  private fotoCache: { [userId: number]: string } = {}; // Cache em memória
 
   constructor(
     private loginService: LoginService,
     private usuarioService: UsuarioService,
     private toast: ToastrService,
-    private router: Router,
+    private router: Router
   ) {}
 
   buscarUsuarioPor() {
@@ -30,7 +31,7 @@ export class MenuLateralDireitoComponent {
       this.usuarioService.buscarUsuariosPor(this.searchInput).subscribe({
         next: (retorno) => {
           this.usuarios = retorno as Usuario[];
-          console.log('Usuários encontrados:', this.usuarios);
+          this.carregarFotosUsuarios(this.usuarios);
         },
         error: (erro) => {
           const mensagem =
@@ -43,8 +44,32 @@ export class MenuLateralDireitoComponent {
     }
   }
 
+  carregarFotosUsuarios(usuarios: Usuario[]) {
+    usuarios.forEach((usuario) => {
+      if (this.fotoCache[usuario.id]) {
+        usuario.foto = this.fotoCache[usuario.id];
+      } else {
+        this.usuarioService.buscarFotoUsuario(usuario.id).subscribe({
+          next: (blob) => {
+            const fotoUrl = URL.createObjectURL(blob);
+            this.fotoCache[usuario.id] = fotoUrl; // Armazena no cache
+            usuario.foto = fotoUrl;
+          },
+          error: (erro) => {
+            const msg =
+              erro.error?.message ||
+              erro.message ||
+              'Erro ao buscar foto do usuário';
+            this.toast.error(msg);
+          },
+        });
+      }
+    });
+  }
+
   selecionarUsuario(usuario: Usuario) {
-    this.router.navigate(['/perfil/', usuario.id]);
+    this.usuarios = [];
+    //this.router.navigate(['/perfil/', usuario.id]);
   }
 
   deslogar() {
