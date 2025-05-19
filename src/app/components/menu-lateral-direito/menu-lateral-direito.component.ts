@@ -5,6 +5,7 @@ import { NgFor, NgIf } from '@angular/common';
 import { Usuario } from '../../interfaces/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu-lateral-direito',
@@ -20,7 +21,8 @@ export class MenuLateralDireitoComponent {
   constructor(
     private loginService: LoginService,
     private usuarioService: UsuarioService,
-    private toast: ToastrService
+    private toast: ToastrService,
+    private router: Router,
   ) {}
 
   buscarUsuarioPor() {
@@ -41,8 +43,8 @@ export class MenuLateralDireitoComponent {
     }
   }
 
-  onSelect(usuario: Usuario) {
-    console.log('Selecionou:', usuario);
+  selecionarUsuario(usuario: Usuario) {
+    this.router.navigate(['/perfil/', usuario.id]);
   }
 
   deslogar() {
