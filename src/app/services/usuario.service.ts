@@ -18,17 +18,15 @@ export class UsuarioService {
     return this.http.post<Usuario>(`${URL_API}/cadastrar`, usuario);
   }
 
+  buscarUsuariosPor(por: string) {
+   return this.http.get<Usuario[]>(`${URL_API}/buscar?por=${por}`);
+  }
+
   enviarEmailResetSenha(email: Email) {
     return this.http.post<Email>(`${URL_API}/enviar-email`, email);
   }
 
-  resetarSenha(resetSenha: ResetSenha, hash: string, id: string) {
-    console.log(resetSenha.senha);
-    console.log(resetSenha.repetirSenha);
-    console.log(hash);
-    console.log(id);
-    
-    
+  resetarSenha(resetSenha: ResetSenha, hash: string, id: string) {  
     return this.http.put<ResetSenha>(`${URL_API}/recuperar-senha/${hash}/${id}`, resetSenha);
   }
 }

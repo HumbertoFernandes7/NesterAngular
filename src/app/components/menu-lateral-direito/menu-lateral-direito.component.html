@@ -1,19 +1,34 @@
 <div class="app-container">
-<aside class="right-sidebar">
+  <aside class="right-sidebar">
     <nav class="right-menu">
+      <div class="search-wrapper">
+        <input
+          type="text"
+          placeholder="Buscar"
+          class="search-input"
+          [(ngModel)]="searchInput"
+          (ngModelChange)="buscarUsuarioPor()"
+        />
+        <ul class="results-list" *ngIf="usuarios.length > 0">
+          <li
+            *ngFor="let usuario of usuarios"
+            (click)="onSelect(usuario)"
+            class="result-item"
+          >
+            <!-- <img [src]="" alt="{{ usuario.foto }}" class="avatar" /> -->
+            <div class="user-info">
+              <div class="name">{{ usuario.nome }}</div>
+            </div>
+          </li>
+        </ul>
+      </div>
 
-      
-        <input type="text" placeholder="Buscar" class="search" />
-
-      <div class="divider"></div>
       <!-- Quem Seguir transformado em tabela -->
       <div class="suggestions">
-        <h3 class="suggestions-title">Quem seguir</h3>
-
+        <h3 class="suggestions-title"></h3>
         <table class="suggestions-table">
           <thead>
             <tr>
-              <th>Usuário</th>
               <th></th>
               <th></th>
             </tr>

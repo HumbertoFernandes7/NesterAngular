@@ -34,24 +34,62 @@
   background-color: rgba(29, 161, 242, 0.1);
 }
 
-.right-sidebar .search {
-  width: 80%;
-  margin: 0 auto 20px;
-  padding: 10px 15px;
+.search-wrapper {
+  position: relative;
+  width: 300px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  border: 1px solid #22303c;
+  background-color: #15202b;
+  color: #fff;
+}
+
+.results-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 300px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
   background-color: #1b1c23;
-  border: 1px solid #22303C;
-  color: #FFF;
-  font-size: 14px;
-  border-radius: 20px;
-  outline: none;
-  transition: background-color 0.2s, border-color 0.2s;
+  border-radius: 8px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
-.right-sidebar .search::placeholder {
-  color: #c8cfd4;
+
+.result-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-.right-sidebar .search:focus {
-  background-color: #15202B;
-  border-color: #1DA1F2;
+
+.result-item:hover {
+  background-color: rgba(29,161,242,0.1);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.user-info .name {
+  font-weight: bold;
+  color: #fff;
+}
+
+.user-info .username {
+  font-size: 0.875rem;
+  color: #8899a6;
 }
 
 .suggestions {
@@ -108,4 +146,64 @@
 .follow-btn:hover {
   background-color: rgba(29, 161, 242, 0.8);
 }
+
+
+.search-wrapper {
+  position: relative;
+  width: 300px;
+}
+
+.search-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  border: 1px solid #22303c;
+  background-color: #15202b;
+  color: #fff;
+}
+
+.results-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 300px;
+  margin: 4px 0 0;
+  padding: 0;
+  list-style: none;
+  background-color: #1b1c23;
+  border-radius: 8px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+}
+
+.result-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.result-item:hover {
+  background-color: rgba(29,161,242,0.1);
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.user-info .name {
+  font-weight: bold;
+  color: #fff;
+}
+
+.user-info .username {
+  font-size: 0.875rem;
+  color: #8899a6;
+}
+
  
