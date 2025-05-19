@@ -7,11 +7,13 @@ import { provideToastr } from 'ngx-toastr';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { authInterceptor } from './interceptors/auth.interceptor';
 import { DatePipe } from '@angular/common';
+import { errorInterceptor } from './interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideHttpClient(
-      withInterceptors([authInterceptor])
+      withInterceptors([authInterceptor]),
+      withInterceptors([errorInterceptor]),
     ),
     DatePipe,
     provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes),
