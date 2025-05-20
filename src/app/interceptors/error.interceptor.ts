@@ -15,7 +15,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         login.logout();
         router.navigate(['/login']);
       }
-      return throwError(() => new Error('Sessão expirada, faça login novamente'));
+      return throwError(() => error);
     })
   );
 };

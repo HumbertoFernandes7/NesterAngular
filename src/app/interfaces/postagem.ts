@@ -5,4 +5,6 @@ export interface Postagem {
     mensagem: string;
     dataPostagem: Date;
     usuario: Usuario;
+    quantidadeCurtidas: number;
+    jaCurtiu: boolean;
 }

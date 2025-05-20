@@ -23,8 +23,8 @@
               <p>{{ postagem.mensagem }}</p>
             </div>
             <footer class="post-actions">
-              <button class="action-btn">
-                <p><ng-icon class="btn-icon" name="heroHeart" />100.000</p>
+              <button class="action-btn" (click)="curtirPostagem(postagem)">
+                <p><ng-icon class="btn-icon" name="heroHeart" />{{postagem.quantidadeCurtidas}}</p>
               </button>
               <button class="action-btn">
                 <ng-icon
@@ -57,7 +57,7 @@
             </div>
             <footer class="post-actions">
               <button class="action-btn">
-                <p><ng-icon class="btn-icon" name="heroHeart" />100.000</p>
+                <p><ng-icon class="btn-icon" name="heroHeart" />10.000</p>
               </button>
               <button class="action-btn">
                 <ng-icon class="btn-icon" name="heroChatBubbleOvalLeft" />
