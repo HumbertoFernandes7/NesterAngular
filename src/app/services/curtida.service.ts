@@ -18,8 +18,4 @@ export class CurtidaService {
   removerCurtida(idPostagem: number) {
     return this.http.delete(`${URL_API}/${idPostagem}`);
   }
-
-  quantidadeCurtidas(idPostagem: number) {
-    return this.http.get<number>(`${URL_API}/quantidade/${idPostagem}`);
-  }
 }

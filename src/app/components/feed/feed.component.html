@@ -23,14 +23,24 @@
               <p>{{ postagem.mensagem }}</p>
             </div>
             <footer class="post-actions">
-              <button class="action-btn" (click)="curtirPostagem(postagem)">
-                <p><ng-icon class="btn-icon" name="heroHeart" />{{postagem.quantidadeCurtidas}}</p>
+              <button
+                class="action-btn"
+                (click)="
+                  postagem.jaCurtiu
+                    ? removerCurtida(postagem)
+                    : curtirPostagem(postagem)
+                "
+              >
+                <p>
+                  <ng-icon
+                    class="btn-icon"
+                    [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
+                  />
+                  {{ postagem.quantidadeCurtidas }}
+                </p>
               </button>
               <button class="action-btn">
-                <ng-icon
-                  class="icones-publicacao"
-                  name="heroChatBubbleOvalLeft"
-                />
+                <ng-icon class="btn-icon" name="heroChatBubbleOvalLeft" />
               </button>
             </footer>
           </article>

@@ -14,6 +14,10 @@ export class UsuarioService {
 
   constructor(private http: HttpClient) { }
 
+  buscarDadosUsuarioLogado(){
+    return this.http.get<Usuario>(`${URL_API}/logado`);
+  }
+
   cadastrarUsuario(usuario: Usuario) {
     return this.http.post<Usuario>(`${URL_API}/cadastrar`, usuario);
   }

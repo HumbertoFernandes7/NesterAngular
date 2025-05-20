@@ -11,6 +11,8 @@ import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
 import { MenuLateralDireitoComponent } from '../menu-lateral-direito/menu-lateral-direito.component';
 import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 import { CurtidaService } from '../../services/curtida.service';
+import { UsuarioService } from '../../services/usuario.service';
+import { Usuario } from '../../interfaces/usuario';
 
 @Component({
   selector: 'app-feed',
@@ -39,7 +41,8 @@ export class FeedComponent implements OnInit {
     private loginService: LoginService,
     private datePipe: DatePipe,
     private toastService: ToastrService,
-    private curtidaService: CurtidaService
+    private curtidaService: CurtidaService,
+    private usuarioService: UsuarioService
   ) {}
 
   ngOnInit() {
@@ -55,19 +58,26 @@ export class FeedComponent implements OnInit {
   }
 
   listarForYou() {
-    this.feedService.listarForYou().subscribe({
-      next: (posts) => {
-        this.postagens = posts as Postagem[];
-        this.postagens.forEach((p) => {
-          p.dataPostagem = this.formatarData(p.dataPostagem) as any;
-          this.curtidaService.quantidadeCurtidas(p.id).subscribe({
-            next: (c) => (p.quantidadeCurtidas = c),
-            error: (err) => this.toastService.error(err.error.mensagem),
-          });
+    this.usuarioService.buscarDadosUsuarioLogado().subscribe({
+      next: (usuarioLogado) => {
+        this.feedService.listarForYou().subscribe({
+          next: (posts) => {
+            this.postagens = posts as Postagem[];
+            this.postagens.forEach((p) => {
+              p.dataPostagem = this.formatarData(p.dataPostagem) as any;
+              p.quantidadeCurtidas = p.curtidas.length;
+              p.jaCurtiu = p.curtidas.some(
+                (c) => c.usuario.id === usuarioLogado.id
+              );
+            });
+          },
+          error: (erro) => {
+            this.toastService.error(erro.error.mensagem);
+          },
         });
       },
       error: (erro) => {
-        this.toastService.error(erro.error.mensagem);
+        this.toastService.error('Erro ao buscar dados do usuário logado.');
       },
     });
   }
@@ -75,10 +85,11 @@ export class FeedComponent implements OnInit {
   curtirPostagem(postagem: Postagem) {
     this.curtidaService.curtirPostagem(postagem.id).subscribe({
       next: () => {
+        postagem.jaCurtiu = true;
         postagem.quantidadeCurtidas++;
       },
       error: () => {
-        this.removerCurtida(postagem);
+        this.toastService.error('Erro inesperado ao curtir postagem');
       },
     });
   }
@@ -86,21 +97,11 @@ export class FeedComponent implements OnInit {
   removerCurtida(postagem: Postagem) {
     this.curtidaService.removerCurtida(postagem.id).subscribe({
       next: () => {
+        postagem.jaCurtiu = false;
         postagem.quantidadeCurtidas--;
       },
-      error: (erro) => {
-        this.toastService.error("Erro inesperado ao remover a curtida");
-      },
-    });
-  }
-
-  quantidadeCurtidas(postagem: Postagem) {
-    this.curtidaService.quantidadeCurtidas(postagem.id).subscribe({
-      next: (retorno) => {
-        return (postagem.quantidadeCurtidas = retorno as number);
-      },
-      error: (erro) => {
-        this.toastService.error(erro.error.mensagem);
+      error: () => {
+        this.toastService.error('Erro inesperado ao remover a curtida');
       },
     });
   }

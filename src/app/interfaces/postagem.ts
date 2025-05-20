@@ -1,3 +1,4 @@
+import { Curtida } from "./curtida";
 import { Usuario } from "./usuario";
 
 export interface Postagem {
@@ -5,6 +6,7 @@ export interface Postagem {
     mensagem: string;
     dataPostagem: Date;
     usuario: Usuario;
+    curtidas: Curtida [];
     quantidadeCurtidas: number;
     jaCurtiu: boolean;
 }
