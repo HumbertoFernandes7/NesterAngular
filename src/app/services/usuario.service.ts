@@ -33,4 +33,8 @@ export class UsuarioService {
   resetarSenha(resetSenha: ResetSenha, hash: string, id: string) {  
     return this.http.put<ResetSenha>(`${URL_API}/recuperar-senha/${hash}/${id}`, resetSenha);
   }
+
+  buscarUsuariosRecomendados() {
+    return this.http.get<Usuario[]>(`${URL_API}/recomendados`);
+  }
 }

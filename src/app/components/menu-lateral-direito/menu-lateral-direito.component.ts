@@ -14,10 +14,11 @@ import { Router } from '@angular/router';
   templateUrl: './menu-lateral-direito.component.html',
   styleUrl: './menu-lateral-direito.component.css',
 })
-export class MenuLateralDireitoComponent {
+export class MenuLateralDireitoComponent implements OnInit {
   searchInput = '';
   usuarios: Usuario[] = [];
-  private fotoCache: { [userId: number]: string } = {}; // Cache em memória
+  usuariosRecomendados: Usuario[] = [];
+  private fotoCache: { [userId: number]: string } = {}; // Cache em memória das fotos
 
   constructor(
     private loginService: LoginService,
@@ -25,6 +26,9 @@ export class MenuLateralDireitoComponent {
     private toast: ToastrService,
     private router: Router
   ) {}
+  ngOnInit(): void {
+    this.buscarUsuariosRecomendados();
+  }
 
   buscarUsuarioPor() {
     if (this.searchInput.length >= 3) {
@@ -42,6 +46,20 @@ export class MenuLateralDireitoComponent {
     } else {
       this.usuarios = [];
     }
+  }
+
+  buscarUsuariosRecomendados() {
+    this.usuarioService.buscarUsuariosRecomendados().subscribe({
+      next: (retorno) => {
+        this.usuariosRecomendados = retorno as Usuario[];
+        this.carregarFotosUsuarios(this.usuariosRecomendados);
+      },
+      error: (erro) => {
+        const mensagem =
+          erro.error?.mesage || erro.message || 'Erro ao buscar usuários';
+        this.toast.error(mensagem);
+      },
+    });
   }
 
   carregarFotosUsuarios(usuarios: Usuario[]) {
@@ -70,6 +88,10 @@ export class MenuLateralDireitoComponent {
   selecionarUsuario(usuario: Usuario) {
     this.usuarios = [];
     //this.router.navigate(['/perfil/', usuario.id]);
+  }
+
+  seguirUsuario(nome: string) {
+    console.log("seguindo: "+ nome);
   }
 
   deslogar() {

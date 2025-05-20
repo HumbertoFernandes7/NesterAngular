@@ -23,48 +23,22 @@
         </ul>
       </div>
 
-      <!-- Quem Seguir transformado em tabela -->
+      <!-- ecomendados -->
       <div class="suggestions">
         <h3 class="suggestions-title"></h3>
         <table class="suggestions-table">
-          <thead>
-            <tr>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
           <tbody>
-            <tr>
-              <td class="user-cell">
+            <tr *ngFor="let usuarioRecomendado of usuariosRecomendados">
+              <td class="user-cell" >
                 <div class="suggestion-info">
-                  <strong>Maria Silva</strong>
-                  <span>mariasilva</span>
+                   <img [src]="usuarioRecomendado.foto" alt="fotoPerfil" class="avatar" /> 
+                  <strong>{{ usuarioRecomendado.nome }}</strong>
                 </div>
               </td>
               <td class="action-cell">
-                <button class="follow-btn">Seguir</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="user-cell">
-                <div class="suggestion-info">
-                  <strong>João Souza</strong>
-                  <span>joaosouza</span>
-                </div>
-              </td>
-              <td class="action-cell">
-                <button class="follow-btn">Seguir</button>
-              </td>
-            </tr>
-            <tr>
-              <td class="user-cell">
-                <div class="suggestion-info">
-                  <strong>Ana Pereira</strong>
-                  <span>anapereira</span>
-                </div>
-              </td>
-              <td class="action-cell">
-                <button class="follow-btn">Seguir</button>
+                <button class="follow-btn" (click)="seguirUsuario(usuarioRecomendado.nome)">
+                  Seguir
+                </button>
               </td>
             </tr>
           </tbody>
@@ -72,7 +46,6 @@
       </div>
 
       <div class="divider"></div>
-
       <a href="#" class="right-item">Mensagens</a>
       <a href="#" class="right-item" (click)="deslogar()">Logout</a>
     </nav>
