@@ -1,83 +1,96 @@
 <div class="app-container">
   <app-menu-mobile></app-menu-mobile>
   <app-menu-lateral></app-menu-lateral>
+
   <main class="main-feed">
     <div class="feeds-wrapper">
-      <!-- Feed For you -->
+      <!-- Feed 'Para Você' -->
       <div class="feed-column" *ngIf="feed1">
-        <a (click)="trocarAssuntoFeed()"
-          ><h2 class="feed-title">Para Você</h2></a
-        >
-        <section class="feed-container">
+        <a (click)="trocarAssuntoFeed()">
+          <h2 class="feed-title">Para Você</h2>
+        </a>
+        <div class="feed-container">
           <article class="post" *ngFor="let postagem of postagens">
             <header class="post-header">
               <div class="post-user">
-                <!-- <img src="assets/img/user-avatar.png" alt="Avatar do usuário" class="post-avatar"> -->
                 <div class="post-user-info">
                   <strong>{{ postagem.usuario.nome }}</strong>
                   <span>{{ postagem.dataPostagem | date : "dd/MM/yyyy" }}</span>
                 </div>
               </div>
             </header>
+
             <div class="post-content">
               <p>{{ postagem.mensagem }}</p>
             </div>
+
             <footer class="post-actions">
               <button
                 class="action-btn"
+                aria-label="Curtir post"
                 (click)="
                   postagem.jaCurtiu
                     ? removerCurtida(postagem)
                     : curtirPostagem(postagem)
                 "
               >
-                <p>
-                  <ng-icon
-                    class="btn-icon"
-                    [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
-                  />
-                  {{ postagem.quantidadeCurtidas }}
-                </p>
+                <ng-icon
+                  class="btn-icon"
+                  [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
+                ></ng-icon>
+                {{ postagem.quantidadeCurtidas }}
               </button>
-              <button class="action-btn">
-                <ng-icon class="btn-icon" name="heroChatBubbleOvalLeft" />
+
+              <button class="action-btn" aria-label="Comentar post">
+                <ng-icon
+                  class="btn-icon"
+                  name="heroChatBubbleOvalLeft"
+                ></ng-icon>
               </button>
             </footer>
           </article>
-        </section>
+        </div>
       </div>
-      <!-- Feed Seguindo -->
+
+      <!-- Feed 'Seguindo' -->
       <div class="feed-column" *ngIf="feed2">
-        <a (click)="trocarAssuntoFeed()"
-          ><h2 class="feed-title">Seguindo</h2></a
-        >
-        <section class="feed-container">
+        <a (click)="trocarAssuntoFeed()">
+          <h2 class="feed-title">Seguindo</h2>
+        </a>
+        <div class="feed-container">
           <article class="post">
             <header class="post-header">
               <div class="post-user">
-                <!-- <img src="assets/img/user-avatar.png" alt="Avatar do usuário" class="post-avatar"> -->
                 <div class="post-user-info">
                   <strong>Outro Usuário</strong>
                   <span>outro · 1h</span>
                 </div>
               </div>
             </header>
+
             <div class="post-content">
               <p>O que está acontecendo neste feed 2?</p>
             </div>
+
             <footer class="post-actions">
-              <button class="action-btn">
-                <p><ng-icon class="btn-icon" name="heroHeart" />10.000</p>
+              <button class="action-btn" aria-label="Curtir post">
+                <ng-icon class="btn-icon" name="heroHeart"></ng-icon>
+                10.000
               </button>
-              <button class="action-btn">
-                <ng-icon class="btn-icon" name="heroChatBubbleOvalLeft" />
+
+              <button class="action-btn" aria-label="Comentar post">
+                <ng-icon
+                  class="btn-icon"
+                  name="heroChatBubbleOvalLeft"
+                ></ng-icon>
               </button>
             </footer>
           </article>
-        </section>
+        </div>
       </div>
     </div>
   </main>
+
   <div *ngIf="feedService.publicacaoModal">
     <app-postagem></app-postagem>
   </div>
