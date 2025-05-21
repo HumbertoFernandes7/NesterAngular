@@ -15,7 +15,7 @@
                 <!-- <img src="assets/img/user-avatar.png" alt="Avatar do usuário" class="post-avatar"> -->
                 <div class="post-user-info">
                   <strong>{{ postagem.usuario.nome }}</strong>
-                  <span>{{ postagem.dataPostagem }}</span>
+                  <span>{{ postagem.dataPostagem | date : "dd/MM/yyyy" }}</span>
                 </div>
               </div>
             </header>
@@ -82,7 +82,5 @@
     <app-postagem></app-postagem>
   </div>
 
-  <app-menu-lateral-direito
-    class="app-menu-lateral-direito"
-  ></app-menu-lateral-direito>
+  <app-menu-lateral-direito></app-menu-lateral-direito>
 </div>

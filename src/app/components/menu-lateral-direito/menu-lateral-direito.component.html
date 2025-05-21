@@ -1,53 +1,50 @@
 <div class="app-container">
   <aside class="right-sidebar">
     <nav class="right-menu">
+      <!-- Barra de busca -->
       <div class="search-wrapper">
         <input
           type="text"
           placeholder="Buscar"
+          aria-label="Buscar usuário"
           class="search-input"
           [(ngModel)]="searchInput"
           (ngModelChange)="buscarUsuarioPor()"
         />
-        <ul class="results-list" *ngIf="usuarios.length > 0">
+        <ul class="results-list" *ngIf="searchInput && usuarios.length > 0">
           <li
             *ngFor="let usuario of usuarios"
             (click)="selecionarUsuario(usuario)"
             class="result-item"
           >
-             <img [src]="usuario.foto" alt="fotoPerfil" class="avatar" /> 
+            <img [src]="usuario.foto" alt="Foto de perfil de {{usuario.nome}}" class="avatar" />
             <div class="user-info">
               <div class="name">{{ usuario.nome }}</div>
             </div>
           </li>
         </ul>
+        <p class="no-results" *ngIf="searchInput && usuarios.length === 0">Nenhum usuário encontrado</p>
       </div>
 
-      <!-- ecomendados -->
-      <div class="suggestions">
-        <h3 class="suggestions-title"></h3>
-        <table class="suggestions-table">
-          <tbody>
-            <tr *ngFor="let usuarioRecomendado of usuariosRecomendados">
-              <td class="user-cell" >
-                <div class="suggestion-info">
-                   <img [src]="usuarioRecomendado.foto" alt="fotoPerfil" class="avatar" /> 
-                  <strong>{{ usuarioRecomendado.nome }}</strong>
-                </div>
-              </td>
-              <td class="action-cell">
-                <button class="follow-btn" (click)="seguirUsuario(usuarioRecomendado.nome)">
-                  Seguir
-                </button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+      <!-- Usuários recomendados -->
+      <section class="suggestions">
+        <h3 class="suggestions-title">Sugestões para você</h3>
+        <ul class="suggestions-list">
+          <li *ngFor="let u of usuariosRecomendados" class="suggestion-item">
+            <div class="suggestion-info">
+              <img [src]="u.foto" alt="Foto de perfil de {{u.nome}}" class="avatar" />
+              <strong>{{ u.nome }}</strong>
+            </div>
+            <button type="button" class="follow-btn" (click)="seguirUsuario(u.nome)">Seguir</button>
+          </li>
+        </ul>
+      </section>
 
       <div class="divider"></div>
-      <a href="#" class="right-item">Mensagens</a>
-      <a href="#" class="right-item" (click)="deslogar()">Logout</a>
+
+      <!-- Ações -->
+      <button type="button" class="right-item">Mensagens</button>
+      <button type="button" class="right-item" (click)="deslogar()">Logout</button>
     </nav>
   </aside>
 </div>

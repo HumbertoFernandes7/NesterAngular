@@ -58,6 +58,17 @@ table {
   border-spacing: 0;
 }
 
+.app-container {
+  display: flex;
+  height: 100vh;
+  color: #FFF;
+  width: 100%;
+}
+
+.main-content {
+  flex: 1;            /* ocupa todo o espaço à esquerda */
+  overflow-y: auto;   /* rolagem própria, se necessário */
+}
 /* 5. Ajustes adicionais (opcional) */
 /* html { line-height: 1; } – muitas pessoas preferem definir explicitamente :contentReference[oaicite:7]{index=7} */
 /* *, *::before, *::after { box-sizing: border-box; } – abordagem moderna recomendada :contentReference[oaicite:8]{index=8} */

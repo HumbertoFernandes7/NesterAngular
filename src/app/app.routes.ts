@@ -7,6 +7,7 @@ import { guestGuard } from './guards/guest.guard';
 import { authGuard } from './guards/auth.guard';
 import { EsqueciMinhaSenhaComponent } from './components/esqueci-minha-senha/esqueci-minha-senha.component';
 import { ResetSenhaComponent } from './components/reset-senha/reset-senha.component';
+import { MeuPerfilComponent } from './components/meu-perfil/meu-perfil.component';
 
 export const routes: Routes = [
     {
@@ -22,12 +23,16 @@ export const routes: Routes = [
         path: 'esqueci-minha-senha', component: EsqueciMinhaSenhaComponent,
     },
     {
+        path: 'recuperar-senha/:hash/:id', component: ResetSenhaComponent,
+    },
+    {
         path: 'login', component: LoginComponent, canActivate: [guestGuard],
     },
     {
         path: 'feed', component: FeedComponent, canActivate: [authGuard],
     }, 
     {
-        path: 'recuperar-senha/:hash/:id', component: ResetSenhaComponent,
-    }
+        path: 'meu-perfil', component: MeuPerfilComponent, canActivate: [authGuard],
+    },
+    
 ];

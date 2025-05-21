@@ -1,0 +1,60 @@
+<div class="app-container">
+  <app-menu-mobile></app-menu-mobile>
+  <app-menu-lateral> </app-menu-lateral>
+  <div class="main-content">
+    <div class="profile-container">
+      <!-- Avatar e ações principais -->
+      <div class="profile-header">
+        <div class="avatar-wrapper">
+          <img src="" alt="Avatar do usuário" class="profile-avatar" />
+        </div>
+        <div class="profile-actions">
+          <button type="button" class="btn btn-follow">Seguir</button>
+        </div>
+      </div>
+
+      <!-- Informações do usuário -->
+      <div class="profile-info">
+        <h2 class="profile-name">Nome do Usuário</h2>
+        <p class="profile-extra">
+          <span><strong>100</strong> seguindo</span>
+          <span><strong>250</strong> seguidores</span>
+        </p>
+      </div>
+
+      <!-- Navegação de abas (Tweets, Respostas, Mídia) -->
+      <nav class="profile-nav">
+        <ul>
+          <li class="active"><a>Tweets</a></li>
+        </ul>
+      </nav>
+
+      <!-- Feed de publicações -->
+      <div class="profile-feed">
+        <article class="post">
+          <div class="post-header">
+            <div class="post-user">
+              <strong>Nome do Usuário</strong>
+              <span class="username">usuario</span>
+              <span class="post-date">· 1h</span>
+            </div>
+          </div>
+          <div class="post-body">
+            <p>Texto do post: exemplo de tweet ou publicação do usuário.</p>
+            <!-- Eventuais imagens, vídeos, etc. -->
+          </div>
+          <div class="post-footer">
+            <button class="btn-icon">💬</button>
+            <button class="btn-icon">❤</button>
+          </div>
+        </article>
+        <!-- Repetir <article class="post"> para cada publicação -->
+      </div>
+    </div>
+  </div>
+  <aside class="right-sidebar">
+    <app-menu-lateral-direito
+      class="app-menu-lateral-direito"
+    ></app-menu-lateral-direito>
+  </aside>
+</div>

@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroUsers } from '@ng-icons/heroicons/outline';
 import { PostagemCadastoComponent } from '../postagem-cadastro/postagem-cadastro.component';
-import { DatePipe, NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { FeedService } from '../../services/feed.service';
 import { LoginService } from '../../services/login.service';
 import { Postagem } from '../../interfaces/postagem';
@@ -26,6 +26,8 @@ import { forkJoin } from 'rxjs';
     MenuLateralComponent,
     MenuLateralDireitoComponent,
     MenuMobileComponent,
+    CommonModule
+
   ],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.css',
@@ -40,7 +42,6 @@ export class FeedComponent implements OnInit {
   constructor(
     public feedService: FeedService,
     private loginService: LoginService,
-    private datePipe: DatePipe,
     private toastService: ToastrService,
     private curtidaService: CurtidaService,
     private usuarioService: UsuarioService
@@ -93,7 +94,6 @@ export class FeedComponent implements OnInit {
   private prepararPostagens(postagens: Postagem[], usuarioLogado: Usuario) {
     return postagens.map((p) => ({
       ...p,
-      dataFormatada: this.formatarData(p.dataPostagem),
       quantidadeCurtidas: p.curtidas.length,
       jaCurtiu: p.curtidas.some((c) => c.usuario.id === usuarioLogado.id),
     }));
@@ -116,10 +116,6 @@ export class FeedComponent implements OnInit {
     if (!this.mobile) return;
     this.feed1 = !this.feed1;
     this.feed2 = !this.feed2;
-  }
-
-  private formatarData(data: Date | string) {
-    return this.datePipe.transform(data, 'dd/MM/yyyy')!;
   }
 
   private checkWidth() {

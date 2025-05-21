@@ -96,5 +96,6 @@ export class MenuLateralDireitoComponent implements OnInit {
 
   deslogar() {
     this.loginService.logout();
+    this.router.navigate(['/login']);
   }
 }
