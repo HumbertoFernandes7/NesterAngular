@@ -4,7 +4,7 @@ import { Usuario } from "./usuario";
 export interface Postagem {
     id: number;
     mensagem: string;
-    dataPostagem: Date;
+    dataPostagem: Date | string;
     usuario: Usuario;
     curtidas: Curtida [];
     quantidadeCurtidas: number;

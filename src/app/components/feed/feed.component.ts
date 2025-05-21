@@ -13,6 +13,7 @@ import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 import { CurtidaService } from '../../services/curtida.service';
 import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../interfaces/usuario';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-feed',
@@ -51,33 +52,16 @@ export class FeedComponent implements OnInit {
     this.trocarQuantidadeFeeds();
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    this.checkWidth();
-    this.trocarQuantidadeFeeds();
-  }
-
   listarForYou() {
-    this.usuarioService.buscarDadosUsuarioLogado().subscribe({
-      next: (usuarioLogado) => {
-        this.feedService.listarForYou().subscribe({
-          next: (posts) => {
-            this.postagens = posts as Postagem[];
-            this.postagens.forEach((p) => {
-              p.dataPostagem = this.formatarData(p.dataPostagem) as any;
-              p.quantidadeCurtidas = p.curtidas.length;
-              p.jaCurtiu = p.curtidas.some(
-                (c) => c.usuario.id === usuarioLogado.id
-              );
-            });
-          },
-          error: (erro) => {
-            this.toastService.error(erro.error.mensagem);
-          },
-        });
+    forkJoin({
+      usuarioLogado: this.usuarioService.buscarDadosUsuarioLogado(),
+      postagens: this.feedService.listarForYou(),
+    }).subscribe({
+      next: ({ usuarioLogado, postagens }) => {
+        this.postagens = this.prepararPostagens(postagens, usuarioLogado);
       },
-      error: (erro) => {
-        this.toastService.error('Erro ao buscar dados do usuário logado.');
+      error: () => {
+        this.toastService.error('Ocorreu um erro inesperado!');
       },
     });
   }
@@ -106,6 +90,15 @@ export class FeedComponent implements OnInit {
     });
   }
 
+  private prepararPostagens(postagens: Postagem[], usuarioLogado: Usuario) {
+    return postagens.map((p) => ({
+      ...p,
+      dataFormatada: this.formatarData(p.dataPostagem),
+      quantidadeCurtidas: p.curtidas.length,
+      jaCurtiu: p.curtidas.some((c) => c.usuario.id === usuarioLogado.id),
+    }));
+  }
+
   abrirModalPublicacao() {
     this.feedService.abrirModal();
   }
@@ -114,32 +107,28 @@ export class FeedComponent implements OnInit {
     this.loginService.logout();
   }
 
-  formatarData(data: Date | string) {
-    return this.datePipe.transform(data, 'dd/MM/yyyy');
+  trocarQuantidadeFeeds() {
+    this.feed1 = true;
+    this.feed2 = !this.mobile;
+  }
+
+  trocarAssuntoFeed() {
+    if (!this.mobile) return;
+    this.feed1 = !this.feed1;
+    this.feed2 = !this.feed2;
+  }
+
+  private formatarData(data: Date | string) {
+    return this.datePipe.transform(data, 'dd/MM/yyyy')!;
   }
 
   private checkWidth() {
     this.mobile = window.innerWidth < 768;
   }
 
-  trocarQuantidadeFeeds() {
-    if (this.mobile && this.mobile == true) {
-      this.feed2 = false;
-    } else {
-      this.feed1 = true;
-      this.feed2 = true;
-    }
-  }
-
-  trocarAssuntoFeed() {
-    if (!this.mobile) {
-      return;
-    } else if (this.feed1) {
-      this.feed2 = true;
-      this.feed1 = false;
-    } else if (this.feed2) {
-      this.feed1 = true;
-      this.feed2 = false;
-    }
+  @HostListener('window:resize')
+  private onResize() {
+    this.checkWidth();
+    this.trocarQuantidadeFeeds();
   }
 }
