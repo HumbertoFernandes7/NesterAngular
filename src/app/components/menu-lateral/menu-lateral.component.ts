@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NgIcon } from '@ng-icons/core';
-import { FeedService } from '../../services/feed.service';
+import { PostagemService } from '../../services/postagem.service';
 
 @Component({
   selector: 'app-menu-lateral',
@@ -13,13 +13,11 @@ import { FeedService } from '../../services/feed.service';
 export class MenuLateralComponent {
 
      constructor( 
-           public feedService: FeedService,
+           public postagemService: PostagemService,
      ){}
 
 
     abrirModalPublicacao(){
-       this.feedService.abrirModal();
+       this.postagemService.abrirModalCadastro();
      }
-
-
 }

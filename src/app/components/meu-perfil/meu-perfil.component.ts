@@ -12,6 +12,7 @@ import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../interfaces/usuario';
 import { PostagemService } from '../../services/postagem.service';
 import { forkJoin } from 'rxjs';
+import { PostagemEditarComponent } from "../postagem-editar/postagem-editar.component";
 
 @Component({
   selector: 'app-meu-perfil',
@@ -24,19 +25,20 @@ import { forkJoin } from 'rxjs';
     CommonModule,
     NgIf,
     NgIcon,
-  ],
+    PostagemEditarComponent
+],
   templateUrl: './meu-perfil.component.html',
   styleUrl: './meu-perfil.component.css',
 })
 export class MeuPerfilComponent implements OnInit {
   postagens: Postagem[] = [];
   usuarioLogado!: Usuario;
-
+ 
   constructor(
-    public feedService: FeedService,
+    private feedService: FeedService,
     private toastService: ToastrService,
     private usuarioService: UsuarioService,
-    private postagemService: PostagemService
+    public postagemService: PostagemService
   ) {}
 
   ngOnInit(): void {
@@ -50,8 +52,7 @@ export class MeuPerfilComponent implements OnInit {
     }).subscribe({
       next: ({ postagens, usuarioLogado }) => {
         this.postagens = this.postagemService.prepararPostagens(
-          postagens,
-          usuarioLogado
+          postagens, usuarioLogado
         );
         this.usuarioLogado = usuarioLogado;
         this.carregarFotoUsuarioLogado();
@@ -81,5 +82,38 @@ export class MeuPerfilComponent implements OnInit {
 
   removerCurtida(postagem: Postagem) {
     this.postagemService.removerCurtida(postagem);
+  }
+
+  deletarPostagem(postagem: Postagem) {
+    this.postagemService.deletarPostagem(postagem).subscribe({
+      next: () => {
+        this.toastService.success('Postagem deletada com sucesso!');
+        this.listarPostagensUsuarioLogado();
+      },
+      error: (erro) => {
+        this.toastService.error(
+          'Erro inesperado ao deletar postagem ' + erro.message
+        );
+      },
+    });
+  }
+
+  editarPostagem(postagem: Postagem) {
+    this.postagemService.editarPostagem(postagem).subscribe({
+      next: () => {
+        this.toastService.success('Postagem editada com sucesso!');
+        this.listarPostagensUsuarioLogado();
+      },
+      error: (erro) => {
+        this.toastService.error(
+          'Erro inesperado ao editar postagem ' + erro.message
+        );
+      },
+    });
+  }
+
+  abrirModalEditarPostagem(postagem: Postagem) {
+    this.postagemService.postagem = postagem
+    this.postagemService.abrirModalEdicao();
   }
 }

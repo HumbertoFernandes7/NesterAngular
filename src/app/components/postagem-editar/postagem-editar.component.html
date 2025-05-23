@@ -1,0 +1,24 @@
+<div class="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title">Editar Postagem</h2>
+      <button class="btn-text" (click)="fecharModalPublicacao()">
+        <ng-icon title="Fechar postagem" 
+        name="heroXMark" />
+      </button>
+    </div>
+
+    <div class="modal-body" [formGroup]="editarPostagemForm">
+      <textarea
+        class="areadetexto"
+        rows="4"
+        placeholder="O que está acontecendo?"
+        formControlName="mensagem">
+      </textarea>
+    </div>
+
+    <div class="modal-footer">
+      <button (click)="editarPostagem()" class="btn-primary">Editar</button>
+    </div>
+  </div>
+</div>

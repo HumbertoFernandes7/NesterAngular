@@ -37,11 +37,11 @@ export class FeedComponent implements OnInit {
   mobile = false;
 
   constructor(
-    public feedService: FeedService,
+    private feedService: FeedService,
     private loginService: LoginService,
     private toastService: ToastrService,
     private usuarioService: UsuarioService,
-    private postagemService: PostagemService
+    public postagemService: PostagemService
   ) {}
 
   ngOnInit() {
@@ -76,7 +76,7 @@ export class FeedComponent implements OnInit {
   }
 
   abrirModalPublicacao() {
-    this.feedService.abrirModal();
+    this.postagemService.abrirModalCadastro();
   }
 
   deslogar() {

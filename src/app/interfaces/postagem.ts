@@ -9,4 +9,5 @@ export interface Postagem {
     curtidas: Curtida [];
     quantidadeCurtidas: number;
     jaCurtiu: boolean;
+    menuAberto: boolean;
 }

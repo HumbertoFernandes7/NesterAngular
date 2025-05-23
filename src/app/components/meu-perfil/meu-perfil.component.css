@@ -133,6 +133,42 @@
   margin-top: 10px;
 }
 
+.post-menu {
+  position: relative;
+  margin-left: auto;
+}
+
+.menu-toggle {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.post-options {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  background-color: #1e2a36;
+  border-radius: 8px;
+  padding: 8px 0;
+  list-style: none;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+  z-index: 100;
+  width: 120px;
+}
+
+.post-options li {
+  padding: 10px 16px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.post-options li:hover {
+  background-color: rgba(255,255,255,0.05);
+}
+
 .post-header {
   display: flex;
   align-items: center;

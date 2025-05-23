@@ -1,24 +1,18 @@
-<!-- overlay -->
 <div class="modal-overlay">
-  <!-- modal -->
   <div class="modal">
-    <!-- header -->
     <div class="modal-header">
-        <h2 class="modal-title">Nova Postagem</h2>
-        <button class="btn-text" (click)="fecharModalPublicacao()" ><ng-icon title="Fechar postagem"  name="heroXMark"/></button>
+      <h2 class="modal-title">Nova Postagem</h2>
+      <button class="btn-text" (click)="fecharModalPublicacao()">
+        <ng-icon title="Fechar postagem"
+          name="heroXMark" />
+        </button>
     </div>
 
-    <!-- body -->
     <div class="modal-body" [formGroup]="cadastroPostagemForm">
-      <textarea  c
-        lass="areadetexto"
-        rows="4"
-        placeholder="O que está acontecendo?"
-        formControlName="mensagem"
-      ></textarea>
+      <textarea c lass="areadetexto" rows="4" placeholder="O que está acontecendo?"
+        formControlName="mensagem"></textarea>
     </div>
 
-    <!-- footer -->
     <div class="modal-footer">
       <button (click)="cadastrarPostagem()" class="btn-primary">Postar</button>
     </div>

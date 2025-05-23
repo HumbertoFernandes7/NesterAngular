@@ -43,9 +43,20 @@
                 postagem.dataPostagem | date : "dd/MM/yyyy"
               }}</span>
             </div>
+            <div class="post-menu">
+              <button
+                (click)="postagem.menuAberto = !postagem.menuAberto"
+                class="menu-toggle">
+                ⋮
+              </button>
+              <ul *ngIf="postagem.menuAberto" class="post-options">
+                <li (click)="abrirModalEditarPostagem(postagem)">Editar</li>
+                <li (click)="deletarPostagem(postagem)">Excluir</li>
+              </ul>
+            </div>
           </div>
           <div class="post-body">
-            <p>{{ postagem.mensagem }}.</p>
+            <p>{{ postagem.mensagem }}</p>
             <!-- Eventuais imagens, vídeos, etc. -->
           </div>
           <div class="post-footer">
@@ -73,9 +84,15 @@
       </div>
     </div>
   </div>
-  <div *ngIf="feedService.publicacaoModal">
+
+  <div *ngIf="postagemService.modalCadastrarPostagem">
     <app-postagem></app-postagem>
   </div>
+
+  <div *ngIf="postagemService.modalEditarPostagem">
+    <app-postagem-editar></app-postagem-editar>
+  </div>
+
   <aside class="right-sidebar">
     <app-menu-lateral-direito></app-menu-lateral-direito>
   </aside>

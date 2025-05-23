@@ -39,10 +39,10 @@ export class PostagemCadastoComponent implements OnInit {
       var postagem = this.cadastroPostagemForm.getRawValue() as Postagem;
       this.postagemService.cadastrarPostagem(postagem).subscribe({
         next: () => {
-          this.feedService.fecharModal();
+          this.postagemService.fecharModalCadastro();
         },
-        error: (erro: any) => {
-          this.feedService.fecharModal();
+        error: (erro) => {
+          this.postagemService.fecharModalCadastro();
           const mensagem = erro.error?.mesage || erro.message;
           this.toastService.error(mensagem);
         },
@@ -51,6 +51,6 @@ export class PostagemCadastoComponent implements OnInit {
   }
 
   fecharModalPublicacao() {
-    this.feedService.fecharModal();
+    this.postagemService.fecharModalCadastro();
   }
 }

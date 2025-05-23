@@ -12,6 +12,10 @@ const URL_API = environment.api_url + '/postagem';
   providedIn: 'root',
 })
 export class PostagemService {
+  postagem!: Postagem
+  modalCadastrarPostagem = false;
+  modalEditarPostagem = false;
+
   constructor(
     private http: HttpClient,
     private curtidaService: CurtidaService,
@@ -20,6 +24,14 @@ export class PostagemService {
 
   cadastrarPostagem(postagem: Postagem) {
     return this.http.post<Postagem>(`${URL_API}/cadastrar`, postagem);
+  }
+
+  editarPostagem(postagem: Postagem) {
+    return this.http.put<Postagem>(`${URL_API}/atualizar/${postagem.id}`, postagem);
+  }
+
+  deletarPostagem(postagem: Postagem) {
+    return this.http.delete(`${URL_API}/remover/${postagem.id}`);
   }
 
   prepararPostagens(postagens: Postagem[], usuarioLogado: Usuario) {
@@ -52,5 +64,21 @@ export class PostagemService {
         this.toastService.error('Erro inesperado ao remover a curtida');
       },
     });
+  }
+
+  abrirModalCadastro() {
+    this.modalCadastrarPostagem = true;
+  }
+
+  fecharModalCadastro() {
+    this.modalCadastrarPostagem = false;
+  }
+
+  abrirModalEdicao() {
+    this.modalEditarPostagem = true;
+  }
+
+  fecharModalEdicao() {
+    this.modalEditarPostagem = false;
   }
 }
