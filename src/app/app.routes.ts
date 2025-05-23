@@ -33,6 +33,5 @@ export const routes: Routes = [
     }, 
     {
         path: 'meu-perfil', component: MeuPerfilComponent, canActivate: [authGuard],
-    },
-    
-];
+    },    
+]

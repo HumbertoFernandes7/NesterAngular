@@ -13,7 +13,9 @@
           />
         </div>
         <div class="profile-actions">
-          <button type="button" class="btn btn-follow">Seguir</button>
+          <button type="button" class="btn btn-follow" (click)="editarPerfil()">
+            Editar
+          </button>
         </div>
       </div>
 
@@ -46,7 +48,8 @@
             <div class="post-menu">
               <button
                 (click)="postagem.menuAberto = !postagem.menuAberto"
-                class="menu-toggle">
+                class="menu-toggle"
+              >
                 ⋮
               </button>
               <ul *ngIf="postagem.menuAberto" class="post-options">
@@ -82,6 +85,73 @@
         </article>
         <!-- Repetir <article class="post"> para cada publicação -->
       </div>
+
+      <ng-container *ngIf="editarPerfilVisivel">
+        <!-- Overlay escuro -->
+        <div class="overlay" (click)="fecharEdicaoPerfil()"></div>
+
+        <!-- Modal de Edição de Perfil -->
+        <div class="modal-editar-perfil">
+          <header class="modal-header">
+            <h3>Editar perfil</h3>
+            <button class="close-btn" (click)="fecharEdicaoPerfil()">×</button>
+          </header>
+
+          <form (ngSubmit)="salvarEdicaoPerfil()" class="perfil-form">
+            <!-- Nome -->
+            <div class="campo-input">
+              <label for="nome">Nome</label>
+              <input [(ngModel)]="usuarioLogado.nome" name="nome" />
+            </div>
+
+            <!-- E-mail (somente leitura) -->
+            <div class="campo-input">
+              <label for="email">E-mail</label>
+              <input
+                id="email"
+                type="email"
+                [value]="usuarioLogado?.email"
+                readonly
+              />
+            </div>
+
+            <!-- Data de nascimento -->
+            <div class="campo-input">
+              <label for="dataNascimento">Data de nascimento</label>
+              <input
+                [(ngModel)]="usuarioLogado.dataNascimento"
+                id="dataNascimento"
+                type="date"
+                name="dataNascimento"
+                required
+              />
+            </div>
+
+            <!-- Senha atual -->
+            <div class="campo-input">
+              <label for="senhaAtual">Nova Senha</label>
+              <input
+                [(ngModel)]="usuarioLogado.senha"
+                id="senhaAtual"
+                type="password"
+                name="senhaAtual"
+                required
+              />
+            </div>
+
+            <footer class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-cancel"
+                (click)="fecharEdicaoPerfil()"
+              >
+                Cancelar
+              </button>
+              <button type="submit" class="btn btn-save">Salvar</button>
+            </footer>
+          </form>
+        </div>
+      </ng-container>
     </div>
   </div>
 

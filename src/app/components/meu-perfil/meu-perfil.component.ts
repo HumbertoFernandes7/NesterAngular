@@ -12,7 +12,8 @@ import { UsuarioService } from '../../services/usuario.service';
 import { Usuario } from '../../interfaces/usuario';
 import { PostagemService } from '../../services/postagem.service';
 import { forkJoin } from 'rxjs';
-import { PostagemEditarComponent } from "../postagem-editar/postagem-editar.component";
+import { PostagemEditarComponent } from '../postagem-editar/postagem-editar.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -25,15 +26,17 @@ import { PostagemEditarComponent } from "../postagem-editar/postagem-editar.comp
     CommonModule,
     NgIf,
     NgIcon,
-    PostagemEditarComponent
-],
+    PostagemEditarComponent,
+    FormsModule,
+  ],
   templateUrl: './meu-perfil.component.html',
   styleUrl: './meu-perfil.component.css',
 })
 export class MeuPerfilComponent implements OnInit {
   postagens: Postagem[] = [];
   usuarioLogado!: Usuario;
- 
+  editarPerfilVisivel = false;
+
   constructor(
     private feedService: FeedService,
     private toastService: ToastrService,
@@ -52,7 +55,8 @@ export class MeuPerfilComponent implements OnInit {
     }).subscribe({
       next: ({ postagens, usuarioLogado }) => {
         this.postagens = this.postagemService.prepararPostagens(
-          postagens, usuarioLogado
+          postagens,
+          usuarioLogado
         );
         this.usuarioLogado = usuarioLogado;
         this.carregarFotoUsuarioLogado();
@@ -113,7 +117,46 @@ export class MeuPerfilComponent implements OnInit {
   }
 
   abrirModalEditarPostagem(postagem: Postagem) {
-    this.postagemService.postagem = postagem
+    this.postagemService.postagem = postagem;
     this.postagemService.abrirModalEdicao();
+  }
+
+  editarPerfil() {
+    this.editarPerfilVisivel = true;
+  }
+
+  fecharEdicaoPerfil() {
+    this.editarPerfilVisivel = false;
+  }
+
+  salvarEdicaoPerfil() {
+    if (!this.verificarSenhaValida() && this.usuarioLogado.nome != null) {
+      this.usuarioService.atualizarUsuario(this.usuarioLogado).subscribe({
+        next: () => {
+          this.editarPerfilVisivel = false;
+          this.listarPostagensUsuarioLogado();
+          this.toastService.success('Perfil editado com sucesso!');
+        },
+        error: () => {
+          this.listarPostagensUsuarioLogado();
+          this.toastService.error("Dados inválidos ou não informados! ");
+        },
+      });
+    } else {
+      this.listarPostagensUsuarioLogado();
+      this.toastService.error('Erro ao editar perfil, senha inválida ou não informada!');
+    }
+  }
+
+  verificarSenhaValida() {
+    if (
+      this.usuarioLogado.senha == null ||
+      this.usuarioLogado.senha == undefined ||
+      this.usuarioLogado.senha.length < 8
+    ) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }

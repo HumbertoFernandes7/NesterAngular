@@ -29,6 +29,10 @@ export class UsuarioService {
     return this.http.get<Usuario[]>(`${URL_API}/buscar?por=${por}`);
   }
 
+  atualizarUsuario(usuario: Usuario) {
+    return this.http.put<Usuario>(`${URL_API}/atualizar`, usuario);
+  }
+
   buscarFotoUsuario(id: number) {
     return this.http.get(`${URL_API}/foto-perfil/${id}`, {
       responseType: 'blob',
