@@ -7,9 +7,11 @@ import { CommonModule, NgIf } from '@angular/common';
 import { FeedService } from '../../services/feed.service';
 import { NgIcon } from '@ng-icons/core';
 import { Postagem } from '../../interfaces/postagem';
-import { CurtidaService } from '../../services/curtida.service';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from '../../services/usuario.service';
+import { Usuario } from '../../interfaces/usuario';
+import { PostagemService } from '../../services/postagem.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -28,25 +30,31 @@ import { UsuarioService } from '../../services/usuario.service';
 })
 export class MeuPerfilComponent implements OnInit {
   postagens: Postagem[] = [];
-  usuarioLogado: any;
+  usuarioLogado!: Usuario;
 
   constructor(
     public feedService: FeedService,
-    private curtidaService: CurtidaService,
     private toastService: ToastrService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private postagemService: PostagemService
   ) {}
 
   ngOnInit(): void {
     this.listarPostagensUsuarioLogado();
-    this.buscarDadosUsuarioLogado();
-    this.carregaFotoUsuario();
   }
 
   listarPostagensUsuarioLogado() {
-    this.feedService.listarPostagensUsuarioLogado().subscribe({
-      next: (postagens) => {
-        this.postagens = postagens;
+    forkJoin({
+      usuarioLogado: this.usuarioService.buscarDadosUsuarioLogado(),
+      postagens: this.feedService.listarPostagensUsuarioLogado(),
+    }).subscribe({
+      next: ({ postagens, usuarioLogado }) => {
+        this.postagens = this.postagemService.prepararPostagens(
+          postagens,
+          usuarioLogado
+        );
+        this.usuarioLogado = usuarioLogado;
+        this.carregarFotoUsuarioLogado();
       },
       error: (erro) => {
         this.toastService.error('Erro inesperado ao listar postagens ' + erro);
@@ -54,20 +62,7 @@ export class MeuPerfilComponent implements OnInit {
     });
   }
 
-  buscarDadosUsuarioLogado() {
-    this.usuarioService.buscarDadosUsuarioLogado().subscribe({
-      next: (usuario) => {
-        this.usuarioLogado = usuario;
-      },
-      error: (erro) => {
-        this.toastService.error(
-          'Erro inesperado ao buscar usuário logado ' + erro
-        );
-      },
-    });
-  }
-
-  carregaFotoUsuario() {
+  carregarFotoUsuarioLogado() {
     this.usuarioService.buscarFotoUsuarioLogado().subscribe({
       next: (blob) => {
         this.usuarioLogado.foto = URL.createObjectURL(blob);
@@ -80,29 +75,11 @@ export class MeuPerfilComponent implements OnInit {
     });
   }
 
-  /**
   curtirPostagem(postagem: Postagem) {
-    this.curtidaService.curtirPostagem(postagem.id).subscribe({
-      next: () => {
-        postagem.jaCurtiu = true;
-        postagem.quantidadeCurtidas++;
-      },
-      error: () => {
-        this.toastService.error('Erro inesperado ao curtir postagem');
-      },
-    });
+    this.postagemService.curtirPostagem(postagem);
   }
 
   removerCurtida(postagem: Postagem) {
-    this.curtidaService.removerCurtida(postagem.id).subscribe({
-      next: () => {
-        postagem.jaCurtiu = false;
-        postagem.quantidadeCurtidas--;
-      },
-      error: () => {
-        this.toastService.error('Erro inesperado ao remover a curtida');
-      },
-    });
+    this.postagemService.removerCurtida(postagem);
   }
-    */
 }

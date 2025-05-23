@@ -10,10 +10,9 @@ import { ToastrService } from 'ngx-toastr';
 import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
 import { MenuLateralDireitoComponent } from '../menu-lateral-direito/menu-lateral-direito.component';
 import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
-import { CurtidaService } from '../../services/curtida.service';
 import { UsuarioService } from '../../services/usuario.service';
-import { Usuario } from '../../interfaces/usuario';
 import { forkJoin } from 'rxjs';
+import { PostagemService } from '../../services/postagem.service';
 
 @Component({
   selector: 'app-feed',
@@ -26,7 +25,6 @@ import { forkJoin } from 'rxjs';
     MenuLateralComponent,
     MenuLateralDireitoComponent,
     MenuMobileComponent,
-
   ],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.css',
@@ -42,8 +40,8 @@ export class FeedComponent implements OnInit {
     public feedService: FeedService,
     private loginService: LoginService,
     private toastService: ToastrService,
-    private curtidaService: CurtidaService,
-    private usuarioService: UsuarioService
+    private usuarioService: UsuarioService,
+    private postagemService: PostagemService
   ) {}
 
   ngOnInit() {
@@ -58,7 +56,10 @@ export class FeedComponent implements OnInit {
       postagens: this.feedService.listarForYou(),
     }).subscribe({
       next: ({ usuarioLogado, postagens }) => {
-        this.postagens = this.prepararPostagens(postagens, usuarioLogado);
+        this.postagens = this.postagemService.prepararPostagens(
+          postagens,
+          usuarioLogado
+        );
       },
       error: () => {
         this.toastService.error('Ocorreu um erro inesperado!');
@@ -67,35 +68,11 @@ export class FeedComponent implements OnInit {
   }
 
   curtirPostagem(postagem: Postagem) {
-    this.curtidaService.curtirPostagem(postagem.id).subscribe({
-      next: () => {
-        postagem.jaCurtiu = true;
-        postagem.quantidadeCurtidas++;
-      },
-      error: () => {
-        this.toastService.error('Erro inesperado ao curtir postagem');
-      },
-    });
+    this.postagemService.curtirPostagem(postagem);
   }
 
   removerCurtida(postagem: Postagem) {
-    this.curtidaService.removerCurtida(postagem.id).subscribe({
-      next: () => {
-        postagem.jaCurtiu = false;
-        postagem.quantidadeCurtidas--;
-      },
-      error: () => {
-        this.toastService.error('Erro inesperado ao remover a curtida');
-      },
-    });
-  }
-
-  private prepararPostagens(postagens: Postagem[], usuarioLogado: Usuario) {
-    return postagens.map((p) => ({
-      ...p,
-      quantidadeCurtidas: p.curtidas.length,
-      jaCurtiu: p.curtidas.some((c) => c.usuario.id === usuarioLogado.id),
-    }));
+    this.postagemService.removerCurtida(postagem);
   }
 
   abrirModalPublicacao() {

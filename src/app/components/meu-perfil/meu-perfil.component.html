@@ -6,7 +6,11 @@
       <!-- Avatar e ações principais -->
       <div class="profile-header">
         <div class="avatar-wrapper">
-          <img [src]="usuarioLogado?.foto" alt="Avatar do usuário" class="profile-avatar" />
+          <img
+            [src]="usuarioLogado?.foto"
+            alt="Avatar do usuário"
+            class="profile-avatar"
+          />
         </div>
         <div class="profile-actions">
           <button type="button" class="btn btn-follow">Seguir</button>
@@ -15,7 +19,7 @@
 
       <!-- Informações do usuário -->
       <div class="profile-info">
-        <h2 class="profile-name">{{usuarioLogado?.nome}}</h2>
+        <h2 class="profile-name">{{ usuarioLogado?.nome }}</h2>
         <p class="profile-extra">
           <span><strong>100</strong> seguindo</span>
           <span><strong>250</strong> seguidores</span>
@@ -31,29 +35,38 @@
 
       <!-- Feed de publicações -->
       <div class="profile-feed">
-
         <article class="post" *ngFor="let postagem of postagens">
-          <div class="post-header" >
+          <div class="post-header">
             <div class="post-user">
-              <strong>{{postagem.usuario.nome}}</strong>
-              <span class="post-date">{{postagem.dataPostagem | date : "dd/MM/yyyy"}}</span>
+              <strong>{{ postagem.usuario.nome }}</strong>
+              <span class="post-date">{{
+                postagem.dataPostagem | date : "dd/MM/yyyy"
+              }}</span>
             </div>
           </div>
           <div class="post-body">
-            <p>{{postagem.mensagem}}.</p>
+            <p>{{ postagem.mensagem }}.</p>
             <!-- Eventuais imagens, vídeos, etc. -->
           </div>
           <div class="post-footer">
-
-            <button class="action-btn">
-              <ng-icon class="btn-icon" name="heroHeart"></ng-icon>
-              {{ postagem.quantidadeCurtidas }} 
+            <button
+              class="action-btn"
+              aria-label="Curtir post"
+              (click)="
+                postagem.jaCurtiu
+                  ? removerCurtida(postagem)
+                  : curtirPostagem(postagem)
+              "
+            >
+              <ng-icon
+                [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
+              ></ng-icon>
+              {{ postagem.quantidadeCurtidas }}
             </button>
 
             <button class="action-btn">
               <ng-icon class="btn-icon" name="heroChatBubbleOvalLeft"></ng-icon>
             </button>
-            
           </div>
         </article>
         <!-- Repetir <article class="post"> para cada publicação -->
