@@ -1,4 +1,28 @@
 /* Perfil de Usuário */
+/* 1) Garanta que o container role */
+.main-content {
+  overflow-y: auto; /* ou “scroll” se preferir */
+  height: 100vh; /* garante área completa, ajuste conforme necessidade */
+}
+
+/* 2) Esconda o scrollbar visual mantendo a rolagem ativa */
+
+/* Firefox */
+.main-content {
+  scrollbar-width: none;
+}
+
+/* IE 10+ */
+.main-content {
+  -ms-overflow-style: none;
+}
+
+/* Chrome, Safari e Opera */
+.main-content::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+}
+
 .profile-container {
   display: flex;
   flex-direction: column;
@@ -99,13 +123,14 @@
 .profile-feed {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 6px;
 }
 
 .post {
   background-color: #15202b;
   border-radius: 12px;
   padding: 12px;
+  margin-top: 10px;
 }
 
 .post-header {
@@ -137,12 +162,35 @@
   gap: 16px;
 }
 
-.btn-icon {
+.action-btn {
   background: none;
   border: none;
-  cursor: pointer;
-  font-size: 18px;
-}
-.btn-icon:hover {
   color: #1da1f2;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 16px;
+}
+.action-btn:hover {
+  background-color: rgba(29, 161, 242, 0.1);
+}
+
+@media screen and (max-width: 768px) {
+  .profile-container {
+    margin-top: 50px;
+  }
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile-actions {
+    margin-top: 8px;
+  }
+  .post {
+    margin-right: 30px;
+  }
 }

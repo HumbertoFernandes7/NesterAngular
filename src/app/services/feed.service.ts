@@ -18,6 +18,10 @@ export class FeedService {
     return this.http.get<Postagem[]>(`${URL_API}/foryou`);
   }
 
+  listarPostagensUsuarioLogado(){
+    return this.http.get<Postagem[]>(`${URL_API}/usuario`);
+  }
+
   abrirModal() {
     this.publicacaoModal = true;
   }

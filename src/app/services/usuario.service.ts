@@ -30,6 +30,10 @@ export class UsuarioService {
     return this.http.get(`${URL_API}/foto-perfil/${id}`, { responseType: 'blob' });
   }
 
+   buscarFotoUsuarioLogado() {
+    return this.http.get(`${URL_API}/minha/foto-perfil`, { responseType: 'blob' });
+  }
+
   enviarEmailResetSenha(email: Email) {
     return this.http.post<Email>(`${URL_API}/enviar-email`, email);
   }

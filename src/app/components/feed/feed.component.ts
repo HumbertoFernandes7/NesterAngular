@@ -2,7 +2,7 @@ import { Component, HostListener, OnInit } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroUsers } from '@ng-icons/heroicons/outline';
 import { PostagemCadastoComponent } from '../postagem-cadastro/postagem-cadastro.component';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgIf } from '@angular/common';
 import { FeedService } from '../../services/feed.service';
 import { LoginService } from '../../services/login.service';
 import { Postagem } from '../../interfaces/postagem';
@@ -20,13 +20,12 @@ import { forkJoin } from 'rxjs';
   standalone: true,
   imports: [
     NgIcon,
-    PostagemCadastoComponent,
     NgIf,
-    NgFor,
+    CommonModule,
+    PostagemCadastoComponent,
     MenuLateralComponent,
     MenuLateralDireitoComponent,
     MenuMobileComponent,
-    CommonModule
 
   ],
   templateUrl: './feed.component.html',

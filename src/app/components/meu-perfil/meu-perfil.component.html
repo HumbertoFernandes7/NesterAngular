@@ -6,7 +6,7 @@
       <!-- Avatar e ações principais -->
       <div class="profile-header">
         <div class="avatar-wrapper">
-          <img src="" alt="Avatar do usuário" class="profile-avatar" />
+          <img [src]="usuarioLogado?.foto" alt="Avatar do usuário" class="profile-avatar" />
         </div>
         <div class="profile-actions">
           <button type="button" class="btn btn-follow">Seguir</button>
@@ -15,7 +15,7 @@
 
       <!-- Informações do usuário -->
       <div class="profile-info">
-        <h2 class="profile-name">Nome do Usuário</h2>
+        <h2 class="profile-name">{{usuarioLogado?.nome}}</h2>
         <p class="profile-extra">
           <span><strong>100</strong> seguindo</span>
           <span><strong>250</strong> seguidores</span>
@@ -31,30 +31,39 @@
 
       <!-- Feed de publicações -->
       <div class="profile-feed">
-        <article class="post">
-          <div class="post-header">
+
+        <article class="post" *ngFor="let postagem of postagens">
+          <div class="post-header" >
             <div class="post-user">
-              <strong>Nome do Usuário</strong>
-              <span class="username">usuario</span>
-              <span class="post-date">· 1h</span>
+              <strong>{{postagem.usuario.nome}}</strong>
+              <span class="post-date">{{postagem.dataPostagem | date : "dd/MM/yyyy"}}</span>
             </div>
           </div>
           <div class="post-body">
-            <p>Texto do post: exemplo de tweet ou publicação do usuário.</p>
+            <p>{{postagem.mensagem}}.</p>
             <!-- Eventuais imagens, vídeos, etc. -->
           </div>
           <div class="post-footer">
-            <button class="btn-icon">💬</button>
-            <button class="btn-icon">❤</button>
+
+            <button class="action-btn">
+              <ng-icon class="btn-icon" name="heroHeart"></ng-icon>
+              {{ postagem.quantidadeCurtidas }} 
+            </button>
+
+            <button class="action-btn">
+              <ng-icon class="btn-icon" name="heroChatBubbleOvalLeft"></ng-icon>
+            </button>
+            
           </div>
         </article>
         <!-- Repetir <article class="post"> para cada publicação -->
       </div>
     </div>
   </div>
+  <div *ngIf="feedService.publicacaoModal">
+    <app-postagem></app-postagem>
+  </div>
   <aside class="right-sidebar">
-    <app-menu-lateral-direito
-      class="app-menu-lateral-direito"
-    ></app-menu-lateral-direito>
+    <app-menu-lateral-direito></app-menu-lateral-direito>
   </aside>
 </div>
