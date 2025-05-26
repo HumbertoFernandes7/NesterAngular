@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../interfaces/usuario';
 import { Postagem } from '../../interfaces/postagem';
-import { ActivatedRoute } from '@angular/router';
-import { forkJoin } from 'rxjs';
+import { ActivatedRoute, Route, Router } from '@angular/router';
+import { filter, forkJoin, map, switchMap } from 'rxjs';
 import { UsuarioService } from '../../services/usuario.service';
 import { FeedService } from '../../services/feed.service';
-import { MeuPerfilComponent } from "../meu-perfil/meu-perfil.component";
+import { MeuPerfilComponent } from '../meu-perfil/meu-perfil.component';
 import { ToastrService } from 'ngx-toastr';
 import { PostagemService } from '../../services/postagem.service';
 
@@ -18,7 +18,8 @@ import { PostagemService } from '../../services/postagem.service';
     <app-meu-perfil
       [isOwner]="false"
       [usuario]="usuario"
-      [postagens]="postagens">
+      [postagens]="postagens"
+    >
     </app-meu-perfil>
   `,
   styleUrl: './perfil.component.css',
@@ -28,33 +29,40 @@ export class PerfilComponent implements OnInit {
   postagens: Postagem[] = [];
 
   constructor(
-    private route: ActivatedRoute,
+    private activeRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
     private feedService: FeedService,
     private toastService: ToastrService,
     private postagemService: PostagemService,
+    private route: Router
   ) {}
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    forkJoin({
-      usuario: this.usuarioService.buscarUsuarioPorId(id),
-      postagens: this.feedService.listarPostagensDoUsuarioPeloId(id),
-    }).subscribe({
-      next: ({ usuario, postagens }) => {
-        this.usuario = usuario;
-        this.postagens = this.postagemService.prepararPostagens(
-          postagens,
-          usuario
-        );
-        this.carregarFotoUsuarioLogado(usuario.id);
-      },
-      error: (erro) => {
-        console.log(erro);
-        
-        this.toastService.error('Usuário não encontrado')
-      },
-    });
+    this.activeRoute.paramMap
+      .pipe(
+        map((params) => Number(params.get('id'))),
+        filter((id) => !isNaN(id)),
+        switchMap((id) =>
+          forkJoin({
+            usuario: this.usuarioService.buscarUsuarioPorId(id),
+            postagens: this.feedService.listarPostagensDoUsuarioPeloId(id),
+          })
+        )
+      )
+      .subscribe({
+        next: ({ usuario, postagens }) => {
+          this.usuario = usuario;
+          this.postagens = this.postagemService.prepararPostagens(
+            postagens,
+            usuario
+          );
+          this.carregarFotoUsuarioLogado(usuario.id);
+        },
+        error: () => {
+          this.toastService.error('Erro ao carregar perfil');
+          this.route.navigate(['/feed']);
+        },
+      });
   }
 
   carregarFotoUsuarioLogado(id: number) {
