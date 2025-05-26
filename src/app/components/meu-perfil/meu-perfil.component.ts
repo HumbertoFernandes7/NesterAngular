@@ -95,6 +95,7 @@ export class MeuPerfilComponent implements OnInit {
   deletarPostagem(postagem: Postagem) {
     this.postagemService.deletarPostagem(postagem).subscribe({
       next: () => {
+        postagem.menuAberto = false
         this.toastService.success('Postagem deletada com sucesso!');
         this.listarPostagensUsuarioLogado();
       },
@@ -121,6 +122,7 @@ export class MeuPerfilComponent implements OnInit {
   }
 
   abrirModalEditarPostagem(postagem: Postagem) {
+    postagem.menuAberto = false
     this.postagemService.postagem = postagem;
     this.postagemService.abrirModalEdicao();
   }
