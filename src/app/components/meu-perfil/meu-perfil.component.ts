@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
 import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 import { MenuLateralDireitoComponent } from '../menu-lateral-direito/menu-lateral-direito.component';
@@ -33,8 +33,10 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './meu-perfil.component.css',
 })
 export class MeuPerfilComponent implements OnInit {
-  postagens: Postagem[] = [];
-  usuarioLogado!: Usuario;
+  @Input() isOwner: boolean = true;
+  @Input() postagens: Postagem[] = [];
+  @Input() usuario!: Usuario;
+
   editarPerfilVisivel = false;
 
   constructor(
@@ -45,20 +47,22 @@ export class MeuPerfilComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.listarPostagensUsuarioLogado();
+    if (this.isOwner) {
+      this.listarPostagensUsuarioLogado();
+    }
   }
 
   listarPostagensUsuarioLogado() {
     forkJoin({
-      usuarioLogado: this.usuarioService.buscarDadosUsuarioLogado(),
+      usuario: this.usuarioService.buscarDadosUsuarioLogado(),
       postagens: this.feedService.listarPostagensUsuarioLogado(),
     }).subscribe({
-      next: ({ postagens, usuarioLogado }) => {
+      next: ({ postagens, usuario }) => {
         this.postagens = this.postagemService.prepararPostagens(
           postagens,
-          usuarioLogado
+          usuario
         );
-        this.usuarioLogado = usuarioLogado;
+        this.usuario = usuario;
         this.carregarFotoUsuarioLogado();
       },
       error: (erro) => {
@@ -70,7 +74,7 @@ export class MeuPerfilComponent implements OnInit {
   carregarFotoUsuarioLogado() {
     this.usuarioService.buscarFotoUsuarioLogado().subscribe({
       next: (blob) => {
-        this.usuarioLogado.foto = URL.createObjectURL(blob);
+        this.usuario.foto = URL.createObjectURL(blob);
       },
       error: (erro) => {
         this.toastService.error(
@@ -130,8 +134,8 @@ export class MeuPerfilComponent implements OnInit {
   }
 
   salvarEdicaoPerfil() {
-    if (!this.verificarSenhaValida() && this.usuarioLogado.nome != null) {
-      this.usuarioService.atualizarUsuario(this.usuarioLogado).subscribe({
+    if (!this.verificarSenhaValida() && this.usuario.nome != null) {
+      this.usuarioService.atualizarUsuario(this.usuario).subscribe({
         next: () => {
           this.editarPerfilVisivel = false;
           this.listarPostagensUsuarioLogado();
@@ -139,24 +143,31 @@ export class MeuPerfilComponent implements OnInit {
         },
         error: () => {
           this.listarPostagensUsuarioLogado();
-          this.toastService.error("Dados inválidos ou não informados! ");
+          this.toastService.error('Dados inválidos ou não informados! ');
         },
       });
     } else {
       this.listarPostagensUsuarioLogado();
-      this.toastService.error('Erro ao editar perfil, senha inválida ou não informada!');
+      this.toastService.error(
+        'Erro ao editar perfil, senha inválida ou não informada!'
+      );
     }
   }
 
   verificarSenhaValida() {
     if (
-      this.usuarioLogado.senha == null ||
-      this.usuarioLogado.senha == undefined ||
-      this.usuarioLogado.senha.length < 8
+      this.usuario.senha == null ||
+      this.usuario.senha == undefined ||
+      this.usuario.senha.length < 8
     ) {
       return true;
     } else {
       return false;
     }
+  }
+
+  seguirUsuario(usuario: Usuario) {
+    console.log("nada feito");
+    
   }
 }

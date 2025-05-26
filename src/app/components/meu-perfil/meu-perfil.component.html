@@ -7,21 +7,35 @@
       <div class="profile-header">
         <div class="avatar-wrapper">
           <img
-            [src]="usuarioLogado?.foto"
+            [src]="usuario?.foto"
             alt="Avatar do usuário"
             class="profile-avatar"
           />
         </div>
         <div class="profile-actions">
-          <button type="button" class="btn btn-follow" (click)="editarPerfil()">
+          <button
+            *ngIf="isOwner; else seguirBtn"
+            type="button"
+            class="btn btn-follow"
+            (click)="editarPerfil()"
+          >
             Editar
           </button>
+          <ng-template #seguirBtn>
+            <button
+              type="button"
+              class="btn btn-follow"
+              (click)="seguirUsuario(usuario)"
+            >
+              Seguir
+            </button>
+          </ng-template>
         </div>
       </div>
 
       <!-- Informações do usuário -->
       <div class="profile-info">
-        <h2 class="profile-name">{{ usuarioLogado?.nome }}</h2>
+        <h2 class="profile-name">{{ usuario?.nome }}</h2>
         <p class="profile-extra">
           <span><strong>100</strong> seguindo</span>
           <span><strong>250</strong> seguidores</span>
@@ -45,7 +59,7 @@
                 postagem.dataPostagem | date : "dd/MM/yyyy"
               }}</span>
             </div>
-            <div class="post-menu">
+            <div class="post-menu" *ngIf="isOwner">
               <button
                 (click)="postagem.menuAberto = !postagem.menuAberto"
                 class="menu-toggle"
@@ -101,7 +115,7 @@
             <!-- Nome -->
             <div class="campo-input">
               <label for="nome">Nome</label>
-              <input [(ngModel)]="usuarioLogado.nome" name="nome" />
+              <input [(ngModel)]="usuario.nome" name="nome" />
             </div>
 
             <!-- E-mail (somente leitura) -->
@@ -110,7 +124,7 @@
               <input
                 id="email"
                 type="email"
-                [value]="usuarioLogado?.email"
+                [value]="usuario?.email"
                 readonly
               />
             </div>
@@ -119,7 +133,7 @@
             <div class="campo-input">
               <label for="dataNascimento">Data de nascimento</label>
               <input
-                [(ngModel)]="usuarioLogado.dataNascimento"
+                [(ngModel)]="usuario.dataNascimento"
                 id="dataNascimento"
                 type="date"
                 name="dataNascimento"
@@ -131,7 +145,7 @@
             <div class="campo-input">
               <label for="senhaAtual">Nova Senha</label>
               <input
-                [(ngModel)]="usuarioLogado.senha"
+                [(ngModel)]="usuario.senha"
                 id="senhaAtual"
                 type="password"
                 name="senhaAtual"

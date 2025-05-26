@@ -17,6 +17,10 @@ export class UsuarioService {
     private toastService: ToastrService
   ) {}
 
+  buscarUsuarioPorId(id: number) {
+    return this.http.get<Usuario>(`${URL_API}/buscar/${id}`);
+  }
+
   buscarDadosUsuarioLogado() {
     return this.http.get<Usuario>(`${URL_API}/logado`);
   }
@@ -33,7 +37,7 @@ export class UsuarioService {
     return this.http.put<Usuario>(`${URL_API}/atualizar`, usuario);
   }
 
-  buscarFotoUsuario(id: number) {
+  buscarFotoUsuarioPeloId(id: number) {
     return this.http.get(`${URL_API}/foto-perfil/${id}`, {
       responseType: 'blob',
     });

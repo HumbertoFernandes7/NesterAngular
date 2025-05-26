@@ -67,7 +67,7 @@ export class MenuLateralDireitoComponent implements OnInit {
       if (this.fotoCache[usuario.id]) {
         usuario.foto = this.fotoCache[usuario.id];
       } else {
-        this.usuarioService.buscarFotoUsuario(usuario.id).subscribe({
+        this.usuarioService.buscarFotoUsuarioPeloId(usuario.id).subscribe({
           next: (blob) => {
             const fotoUrl = URL.createObjectURL(blob);
             this.fotoCache[usuario.id] = fotoUrl; // Armazena no cache
@@ -87,7 +87,7 @@ export class MenuLateralDireitoComponent implements OnInit {
 
   selecionarUsuario(usuario: Usuario) {
     this.usuarios = [];
-    //this.router.navigate(['/perfil/', usuario.id]);
+    this.router.navigate(['/perfil/', usuario.id]);
   }
 
   seguirUsuario(nome: string) {

@@ -22,6 +22,10 @@ export class FeedService {
     return this.http.get<Postagem[]>(`${URL_API}/usuario`);
   }
 
+  listarPostagensDoUsuarioPeloId(id: number): Observable<Postagem[]> {
+    return this.http.get<Postagem[]>(`${URL_API}/usuario/${id}`);
+  }
+
   abrirModal() {
     this.publicacaoModal = true;
   }
