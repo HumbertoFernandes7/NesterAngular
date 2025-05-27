@@ -8,6 +8,7 @@ import { FeedService } from '../../services/feed.service';
 import { MeuPerfilComponent } from '../meu-perfil/meu-perfil.component';
 import { ToastrService } from 'ngx-toastr';
 import { PostagemService } from '../../services/postagem.service';
+import { FollowService } from '../../services/follow.service';
 
 @Component({
   selector: 'app-perfil',
@@ -27,6 +28,7 @@ import { PostagemService } from '../../services/postagem.service';
 export class PerfilComponent implements OnInit {
   usuario!: Usuario;
   postagens: Postagem[] = [];
+  isFollowing = false;
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -34,7 +36,8 @@ export class PerfilComponent implements OnInit {
     private feedService: FeedService,
     private toastService: ToastrService,
     private postagemService: PostagemService,
-    private route: Router
+    private followService: FollowService,
+    private route: Router,
   ) {}
 
   ngOnInit(): void {
@@ -46,16 +49,18 @@ export class PerfilComponent implements OnInit {
           forkJoin({
             usuario: this.usuarioService.buscarUsuarioPorId(id),
             postagens: this.feedService.listarPostagensDoUsuarioPeloId(id),
+            isFollow: this.followService.isFollow(id)
           })
         )
       )
       .subscribe({
-        next: ({ usuario, postagens }) => {
+        next: ({ usuario, postagens, isFollow }) => {
           this.usuario = usuario;
           this.postagens = this.postagemService.prepararPostagens(
             postagens,
             usuario
           );
+          this.isFollowing = isFollow; 
           this.carregarFotoUsuarioLogado(usuario.id);
         },
         error: () => {

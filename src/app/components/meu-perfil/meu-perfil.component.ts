@@ -14,6 +14,7 @@ import { PostagemService } from '../../services/postagem.service';
 import { forkJoin } from 'rxjs';
 import { PostagemEditarComponent } from '../postagem-editar/postagem-editar.component';
 import { FormsModule } from '@angular/forms';
+import { FollowService } from '../../services/follow.service';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -36,6 +37,7 @@ export class MeuPerfilComponent implements OnInit {
   @Input() isOwner: boolean = true;
   @Input() postagens: Postagem[] = [];
   @Input() usuario!: Usuario;
+  @Input() isFollowing = false;
 
   editarPerfilVisivel = false;
 
@@ -43,7 +45,8 @@ export class MeuPerfilComponent implements OnInit {
     private feedService: FeedService,
     private toastService: ToastrService,
     private usuarioService: UsuarioService,
-    public postagemService: PostagemService
+    public postagemService: PostagemService,
+    private followService: FollowService
   ) {}
 
   ngOnInit(): void {
@@ -156,7 +159,19 @@ export class MeuPerfilComponent implements OnInit {
     }
   }
 
-  verificarSenhaValida() {
+  seguirUsuario(usuario: Usuario) {
+    this.followService.follow(usuario).subscribe({
+      next: (retorno) => {
+        this.isFollowing = !this.isFollowing;
+        this.toastService.success(retorno);
+      },
+      error: () => {
+        this.toastService.error('Erro inesperado!');
+      },
+    });
+  }
+
+  private verificarSenhaValida() {
     if (
       this.usuario.senha == null ||
       this.usuario.senha == undefined ||
@@ -166,10 +181,5 @@ export class MeuPerfilComponent implements OnInit {
     } else {
       return false;
     }
-  }
-
-  seguirUsuario(usuario: Usuario) {
-    console.log("nada feito");
-    
   }
 }

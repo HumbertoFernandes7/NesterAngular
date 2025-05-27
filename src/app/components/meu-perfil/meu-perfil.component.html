@@ -23,11 +23,11 @@
           </button>
           <ng-template #seguirBtn>
             <button
-              type="button"
               class="btn btn-follow"
+              [class.following]="isFollowing"
               (click)="seguirUsuario(usuario)"
             >
-              Seguir
+              {{ isFollowing ? "Seguindo" : "Seguir" }}
             </button>
           </ng-template>
         </div>

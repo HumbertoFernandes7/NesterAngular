@@ -5,4 +5,5 @@ export interface Usuario {
     dataNascimento: Date;
     foto: string;
     senha: string;
+    isFollowing?: boolean;
 }

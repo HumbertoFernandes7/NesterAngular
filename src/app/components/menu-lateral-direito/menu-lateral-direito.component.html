@@ -30,12 +30,20 @@
       <section class="suggestions">
         <h3 class="suggestions-title">Sugestões para você</h3>
         <ul class="suggestions-list">
-          <li *ngFor="let u of usuariosRecomendados" class="suggestion-item">
+          <li *ngFor="let usuario of usuariosRecomendados" class="suggestion-item">
             <div class="suggestion-info">
-              <img [src]="u.foto" alt="Foto de perfil de {{u.nome}}" class="avatar" />
-              <strong>{{ u.nome }}</strong>
+              <img [src]="usuario.foto" alt="Foto de perfil de {{usuario.nome}}" class="avatar" />
+              <strong>{{ usuario.nome }}</strong>
             </div>
-            <button type="button" class="follow-btn" (click)="seguirUsuario(u.nome)">Seguir</button>
+
+            <button 
+            class="follow-btn"
+      [class.following]="usuario.isFollowing"
+      (click)="seguirUsuario(usuario)"
+    >
+      {{ usuario.isFollowing ? 'Seguindo' : 'Seguir' }}
+
+            </button>
           </li>
         </ul>
       </section>

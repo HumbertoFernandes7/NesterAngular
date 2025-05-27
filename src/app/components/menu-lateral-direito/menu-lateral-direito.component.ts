@@ -6,6 +6,7 @@ import { Usuario } from '../../interfaces/usuario';
 import { UsuarioService } from '../../services/usuario.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { FollowService } from '../../services/follow.service';
 
 @Component({
   selector: 'app-menu-lateral-direito',
@@ -24,17 +25,33 @@ export class MenuLateralDireitoComponent implements OnInit {
     private loginService: LoginService,
     private usuarioService: UsuarioService,
     private toast: ToastrService,
-    private router: Router
+    private router: Router,
+    private followService: FollowService
   ) {}
+  
   ngOnInit(): void {
     this.buscarUsuariosRecomendados();
+  }
+
+  buscarUsuariosRecomendados() {
+    this.usuarioService.buscarUsuariosRecomendados().subscribe({
+      next: (retorno) => {
+        this.usuariosRecomendados = retorno
+        this.carregarFotosUsuarios(this.usuariosRecomendados);
+      },
+      error: (erro) => {
+        const mensagem =
+          erro.error?.mesage || erro.message || 'Erro ao buscar usuários';
+        this.toast.error(mensagem);
+      },
+    });
   }
 
   buscarUsuarioPor() {
     if (this.searchInput.length >= 3) {
       this.usuarioService.buscarUsuariosPor(this.searchInput).subscribe({
         next: (retorno) => {
-          this.usuarios = retorno as Usuario[];
+          this.usuarios = retorno 
           this.carregarFotosUsuarios(this.usuarios);
         },
         error: (erro) => {
@@ -46,20 +63,6 @@ export class MenuLateralDireitoComponent implements OnInit {
     } else {
       this.usuarios = [];
     }
-  }
-
-  buscarUsuariosRecomendados() {
-    this.usuarioService.buscarUsuariosRecomendados().subscribe({
-      next: (retorno) => {
-        this.usuariosRecomendados = retorno as Usuario[];
-        this.carregarFotosUsuarios(this.usuariosRecomendados);
-      },
-      error: (erro) => {
-        const mensagem =
-          erro.error?.mesage || erro.message || 'Erro ao buscar usuários';
-        this.toast.error(mensagem);
-      },
-    });
   }
 
   carregarFotosUsuarios(usuarios: Usuario[]) {
@@ -90,8 +93,16 @@ export class MenuLateralDireitoComponent implements OnInit {
     this.router.navigate(['/perfil/', usuario.id]);
   }
 
-  seguirUsuario(nome: string) {
-    console.log("seguindo: "+ nome);
+  seguirUsuario(usuario: Usuario) {
+    this.followService.follow(usuario).subscribe({
+      next: (retorno) => {
+        usuario.isFollowing = !usuario.isFollowing
+        this.toast.success(retorno);
+      },
+      error: () => {
+        this.toast.error('Erro inesperado!');
+      },
+    });
   }
 
   deslogar() {
