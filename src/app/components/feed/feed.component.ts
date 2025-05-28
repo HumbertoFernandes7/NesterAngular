@@ -3,7 +3,6 @@ import { NgIcon, provideIcons } from '@ng-icons/core';
 import { heroUsers } from '@ng-icons/heroicons/outline';
 import { PostagemCadastoComponent } from '../postagem-cadastro/postagem-cadastro.component';
 import { CommonModule, NgIf } from '@angular/common';
-import { FeedService } from '../../services/feed.service';
 import { LoginService } from '../../services/login.service';
 import { Postagem } from '../../interfaces/postagem';
 import { ToastrService } from 'ngx-toastr';
@@ -31,13 +30,13 @@ import { PostagemService } from '../../services/postagem.service';
   viewProviders: [provideIcons({ heroUsers })],
 })
 export class FeedComponent implements OnInit {
-  postagens: Postagem[] = [];
+  postagensForYou: Postagem[] = [];
+  postagensSeguindo: Postagem[] = [];
   feed1 = true;
   feed2 = true;
   mobile = false;
 
   constructor(
-    private feedService: FeedService,
     private loginService: LoginService,
     private toastService: ToastrService,
     private usuarioService: UsuarioService,
@@ -45,21 +44,26 @@ export class FeedComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.listarForYou();
+    this.listarPublicacoesFeed();
     this.checkWidth();
     this.trocarQuantidadeFeeds();
   }
 
-  listarForYou() {
+  listarPublicacoesFeed() {
     forkJoin({
       usuarioLogado: this.usuarioService.buscarDadosUsuarioLogado(),
-      postagens: this.feedService.listarForYou(),
+      postagensForYou: this.postagemService.listarForYou(),
+      postagenSeguindo: this.postagemService.listarPostagensSeguindo(),
     }).subscribe({
-      next: ({ usuarioLogado, postagens }) => {
-        this.postagens = this.postagemService.prepararPostagens(
-          postagens,
+      next: ({ usuarioLogado, postagensForYou, postagenSeguindo }) => {
+        this.postagensForYou = this.postagemService.prepararPostagens(
+          postagensForYou,
           usuarioLogado
         );
+        this.postagensSeguindo = this.postagemService.prepararPostagens(
+          postagenSeguindo,
+          usuarioLogado
+        )
       },
       error: () => {
         this.toastService.error('Ocorreu um erro inesperado!');

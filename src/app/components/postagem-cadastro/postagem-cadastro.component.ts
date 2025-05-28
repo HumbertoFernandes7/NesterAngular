@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FeedService } from '../../services/feed.service';
 import { NgIcon } from '@ng-icons/core';
 import {
   FormBuilder,
@@ -22,7 +21,6 @@ export class PostagemCadastoComponent implements OnInit {
   cadastroPostagemForm!: FormGroup;
 
   constructor(
-    private feedService: FeedService,
     private formBuilder: FormBuilder,
     private postagemService: PostagemService,
     private toastService: ToastrService

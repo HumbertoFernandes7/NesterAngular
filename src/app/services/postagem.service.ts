@@ -5,6 +5,7 @@ import { Postagem } from '../interfaces/postagem';
 import { Usuario } from '../interfaces/usuario';
 import { CurtidaService } from './curtida.service';
 import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 const URL_API = environment.api_url + '/postagem';
 
@@ -21,6 +22,22 @@ export class PostagemService {
     private curtidaService: CurtidaService,
     private toastService: ToastrService
   ) {}
+
+  listarPostagensSeguindo(): Observable<Postagem[]>{
+    return this.http.get<Postagem[]>(`${URL_API}/follow`);
+  }
+
+  listarForYou(): Observable<Postagem[]> {
+    return this.http.get<Postagem[]>(`${URL_API}/foryou`);
+  }
+
+  listarPostagensUsuarioLogado(){
+    return this.http.get<Postagem[]>(`${URL_API}/usuario`);
+  }
+
+  listarPostagensDoUsuarioPeloId(id: number): Observable<Postagem[]> {
+    return this.http.get<Postagem[]>(`${URL_API}/usuario/${id}`);
+  }
 
   cadastrarPostagem(postagem: Postagem) {
     return this.http.post<Postagem>(`${URL_API}/cadastrar`, postagem);

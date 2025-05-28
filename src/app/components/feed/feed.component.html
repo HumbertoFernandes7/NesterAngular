@@ -10,7 +10,7 @@
           <h2 class="feed-title">Para Você</h2>
         </a>
         <div class="feed-container">
-          <article class="post" *ngFor="let postagem of postagens">
+          <article class="post" *ngFor="let postagem of postagensForYou">
             <header class="post-header">
               <div class="post-user">
                 <div class="post-user-info">
@@ -41,9 +41,7 @@
               </button>
 
               <button class="action-btn" aria-label="Comentar post">
-                <ng-icon
-                  name="heroChatBubbleOvalLeft"
-                ></ng-icon>
+                <ng-icon name="heroChatBubbleOvalLeft"></ng-icon>
               </button>
             </footer>
           </article>
@@ -56,31 +54,38 @@
           <h2 class="feed-title">Seguindo</h2>
         </a>
         <div class="feed-container">
-          <article class="post">
+          <article class="post" *ngFor="let postagem of postagensSeguindo">
             <header class="post-header">
               <div class="post-user">
                 <div class="post-user-info">
-                  <strong>Outro Usuário</strong>
-                  <span>outro · 1h</span>
+                  <strong>{{ postagem.usuario.nome }}</strong>
+                  <span>{{ postagem.dataPostagem | date : "dd/MM/yyyy" }}</span>
                 </div>
               </div>
             </header>
 
             <div class="post-content">
-              <p>O que está acontecendo neste feed 2?</p>
+              <p>{{ postagem.mensagem }}</p>
             </div>
 
             <footer class="post-actions">
-              <button class="action-btn" aria-label="Curtir post">
-                <ng-icon class="btn-icon" name="heroHeart"></ng-icon>
-                10.000
+              <button
+                class="action-btn"
+                aria-label="Curtir post"
+                (click)="
+                  postagem.jaCurtiu
+                    ? removerCurtida(postagem)
+                    : curtirPostagem(postagem)
+                "
+              >
+                <ng-icon
+                  [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
+                ></ng-icon>
+                {{ postagem.quantidadeCurtidas }}
               </button>
 
               <button class="action-btn" aria-label="Comentar post">
-                <ng-icon
-                  class="btn-icon"
-                  name="heroChatBubbleOvalLeft"
-                ></ng-icon>
+                <ng-icon name="heroChatBubbleOvalLeft"></ng-icon>
               </button>
             </footer>
           </article>

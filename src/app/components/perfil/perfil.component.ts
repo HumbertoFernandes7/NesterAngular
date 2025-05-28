@@ -4,7 +4,6 @@ import { Postagem } from '../../interfaces/postagem';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { filter, forkJoin, map, switchMap } from 'rxjs';
 import { UsuarioService } from '../../services/usuario.service';
-import { FeedService } from '../../services/feed.service';
 import { MeuPerfilComponent } from '../meu-perfil/meu-perfil.component';
 import { ToastrService } from 'ngx-toastr';
 import { PostagemService } from '../../services/postagem.service';
@@ -33,7 +32,6 @@ export class PerfilComponent implements OnInit {
   constructor(
     private activeRoute: ActivatedRoute,
     private usuarioService: UsuarioService,
-    private feedService: FeedService,
     private toastService: ToastrService,
     private postagemService: PostagemService,
     private followService: FollowService,
@@ -48,7 +46,7 @@ export class PerfilComponent implements OnInit {
         switchMap((id) =>
           forkJoin({
             usuario: this.usuarioService.buscarUsuarioPorId(id),
-            postagens: this.feedService.listarPostagensDoUsuarioPeloId(id),
+            postagens: this.postagemService.listarPostagensDoUsuarioPeloId(id),
             isFollow: this.followService.isFollow(id)
           })
         )

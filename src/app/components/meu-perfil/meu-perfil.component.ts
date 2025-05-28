@@ -4,7 +4,6 @@ import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 import { MenuLateralDireitoComponent } from '../menu-lateral-direito/menu-lateral-direito.component';
 import { PostagemCadastoComponent } from '../postagem-cadastro/postagem-cadastro.component';
 import { CommonModule, NgIf } from '@angular/common';
-import { FeedService } from '../../services/feed.service';
 import { NgIcon } from '@ng-icons/core';
 import { Postagem } from '../../interfaces/postagem';
 import { ToastrService } from 'ngx-toastr';
@@ -42,7 +41,6 @@ export class MeuPerfilComponent implements OnInit {
   editarPerfilVisivel = false;
 
   constructor(
-    private feedService: FeedService,
     private toastService: ToastrService,
     private usuarioService: UsuarioService,
     public postagemService: PostagemService,
@@ -58,7 +56,7 @@ export class MeuPerfilComponent implements OnInit {
   listarPostagensUsuarioLogado() {
     forkJoin({
       usuario: this.usuarioService.buscarDadosUsuarioLogado(),
-      postagens: this.feedService.listarPostagensUsuarioLogado(),
+      postagens: this.postagemService.listarPostagensUsuarioLogado(),
     }).subscribe({
       next: ({ postagens, usuario }) => {
         this.postagens = this.postagemService.prepararPostagens(
