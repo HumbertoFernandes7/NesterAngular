@@ -12,10 +12,7 @@ const URL_API = environment.api_url + '/usuarios';
   providedIn: 'root',
 })
 export class UsuarioService {
-  constructor(
-    private http: HttpClient,
-    private toastService: ToastrService
-  ) {}
+  constructor(private http: HttpClient, private toastService: ToastrService) {}
 
   buscarUsuarioPorId(id: number) {
     return this.http.get<Usuario>(`${URL_API}/buscar/${id}`);
@@ -35,6 +32,12 @@ export class UsuarioService {
 
   atualizarUsuario(usuario: Usuario) {
     return this.http.put<Usuario>(`${URL_API}/atualizar`, usuario);
+  }
+
+  atualizarFotoPerfil(id: number, file: File) {
+    const form = new FormData();
+    form.append('file', file, file.name);
+    return this.http.put<void>(`${URL_API}/atualizar/foto-perfil/${id}`, form);
   }
 
   buscarFotoUsuarioPeloId(id: number) {

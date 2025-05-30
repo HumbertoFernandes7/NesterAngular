@@ -96,7 +96,7 @@ export class MeuPerfilComponent implements OnInit {
   deletarPostagem(postagem: Postagem) {
     this.postagemService.deletarPostagem(postagem).subscribe({
       next: () => {
-        postagem.menuAberto = false
+        postagem.menuAberto = false;
         this.toastService.success('Postagem deletada com sucesso!');
         this.listarPostagensUsuarioLogado();
       },
@@ -123,7 +123,7 @@ export class MeuPerfilComponent implements OnInit {
   }
 
   abrirModalEditarPostagem(postagem: Postagem) {
-    postagem.menuAberto = false
+    postagem.menuAberto = false;
     this.postagemService.postagem = postagem;
     this.postagemService.abrirModalEdicao();
   }
@@ -167,6 +167,25 @@ export class MeuPerfilComponent implements OnInit {
         this.toastService.error('Erro inesperado!');
       },
     });
+  }
+
+  atualizarFotoPerfil(file: File) {
+    this.usuarioService.atualizarFotoPerfil(this.usuario.id, file).subscribe({
+      next: () => {
+        this.carregarFotoUsuarioLogado();
+        this.toastService.success('Foto atualizada com sucesso!');
+      },
+      error: (erro) => {
+        this.toastService.error(erro.error.message);
+      },
+    });
+  }
+
+  aoSelecionarFotoPerfil(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (!input.files?.length) return;
+    const file = input.files[0];
+    this.atualizarFotoPerfil(file);
   }
 
   private verificarSenhaValida() {

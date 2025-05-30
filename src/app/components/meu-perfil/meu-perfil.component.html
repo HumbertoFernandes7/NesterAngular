@@ -1,6 +1,7 @@
 <div class="app-container">
   <app-menu-mobile></app-menu-mobile>
   <app-menu-lateral> </app-menu-lateral>
+
   <div class="main-content">
     <div class="profile-container">
       <!-- Avatar e ações principais -->
@@ -11,6 +12,16 @@
             alt="Avatar do usuário"
             class="profile-avatar"
           />
+          <div class="upload-overlay" *ngIf="isOwner">
+            <label>
+              Trocar foto
+              <input
+                type="file"
+                accept="image/*"
+                (change)="aoSelecionarFotoPerfil($event)"
+              />
+            </label>
+          </div>
         </div>
         <div class="profile-actions">
           <button
