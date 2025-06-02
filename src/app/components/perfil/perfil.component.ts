@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../interfaces/usuario';
 import { Postagem } from '../../interfaces/postagem';
-import { ActivatedRoute, Route, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { filter, forkJoin, map, switchMap } from 'rxjs';
 import { UsuarioService } from '../../services/usuario.service';
 import { MeuPerfilComponent } from '../meu-perfil/meu-perfil.component';
 import { ToastrService } from 'ngx-toastr';
 import { PostagemService } from '../../services/postagem.service';
 import { FollowService } from '../../services/follow.service';
+import { Seguidor } from '../../interfaces/seguidor';
 
 @Component({
   selector: 'app-perfil',
@@ -19,6 +20,7 @@ import { FollowService } from '../../services/follow.service';
       [isOwner]="false"
       [usuario]="usuario"
       [postagens]="postagens"
+      [contagemSeguidor]="contagemSeguidor"
     >
     </app-meu-perfil>
   `,
@@ -28,6 +30,7 @@ export class PerfilComponent implements OnInit {
   usuario!: Usuario;
   postagens: Postagem[] = [];
   isFollowing = false;
+  contagemSeguidor!: Seguidor
 
   constructor(
     private activeRoute: ActivatedRoute,
@@ -60,12 +63,24 @@ export class PerfilComponent implements OnInit {
           );
           this.isFollowing = isFollow; 
           this.carregarFotoUsuarioLogado(usuario.id);
+          this.carregarQuantidadeSeguidoresESeguidos(usuario.id)
         },
         error: () => {
           this.toastService.error('Erro ao carregar perfil');
           this.route.navigate(['/feed']);
         },
       });
+  }
+
+  carregarQuantidadeSeguidoresESeguidos(id: number){
+    this.usuarioService.buscarQuantidadeSeguidoresESeguidos(id).subscribe({
+      next: (retorno) =>{
+        this.contagemSeguidor = retorno
+      },
+      error: () => {
+        this.toastService.error("Erro inesperado!");
+      },
+    });
   }
 
   carregarFotoUsuarioLogado(id: number) {

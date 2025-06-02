@@ -4,7 +4,7 @@ import { Usuario } from '../interfaces/usuario';
 import { environment } from '../../environments/environment.desenv';
 import { Email } from '../interfaces/email';
 import { ResetSenha } from '../interfaces/resetSenha';
-import { ToastrService } from 'ngx-toastr';
+import { Seguidor } from '../interfaces/seguidor';
 
 const URL_API = environment.api_url + '/usuarios';
 
@@ -12,7 +12,7 @@ const URL_API = environment.api_url + '/usuarios';
   providedIn: 'root',
 })
 export class UsuarioService {
-  constructor(private http: HttpClient, private toastService: ToastrService) {}
+  constructor(private http: HttpClient) {}
 
   buscarUsuarioPorId(id: number) {
     return this.http.get<Usuario>(`${URL_API}/buscar/${id}`);
@@ -20,6 +20,10 @@ export class UsuarioService {
 
   buscarDadosUsuarioLogado() {
     return this.http.get<Usuario>(`${URL_API}/logado`);
+  }
+
+  buscarQuantidadeSeguidoresESeguidos(id: number){
+    return this.http.get<Seguidor>(`${URL_API}/quantidade-seguidores-e-seguidos/${id}`)
   }
 
   cadastrarUsuario(usuario: Usuario) {

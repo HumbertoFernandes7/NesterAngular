@@ -14,6 +14,7 @@ import { forkJoin } from 'rxjs';
 import { PostagemEditarComponent } from '../postagem-editar/postagem-editar.component';
 import { FormsModule } from '@angular/forms';
 import { FollowService } from '../../services/follow.service';
+import { Seguidor } from '../../interfaces/seguidor';
 
 @Component({
   selector: 'app-meu-perfil',
@@ -37,9 +38,10 @@ export class MeuPerfilComponent implements OnInit {
   @Input() postagens: Postagem[] = [];
   @Input() usuario!: Usuario;
   @Input() isFollowing = false;
-
+  @Input() contagemSeguidor!: Seguidor
+  
   editarPerfilVisivel = false;
-
+  
   constructor(
     private toastService: ToastrService,
     private usuarioService: UsuarioService,
@@ -65,9 +67,21 @@ export class MeuPerfilComponent implements OnInit {
         );
         this.usuario = usuario;
         this.carregarFotoUsuarioLogado();
+        this.carregarQuantidadeSeguidoresESeguidos(usuario.id);
       },
       error: (erro) => {
         this.toastService.error('Erro inesperado ao listar postagens ' + erro);
+      },
+    });
+  }
+
+  carregarQuantidadeSeguidoresESeguidos(id: number){
+    this.usuarioService.buscarQuantidadeSeguidoresESeguidos(id).subscribe({
+      next: (retorno) =>{
+        this.contagemSeguidor = retorno
+      },
+      error: () => {
+        this.toastService.error("Erro inesperado!");
       },
     });
   }
