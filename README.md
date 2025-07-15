@@ -34,10 +34,6 @@ O projeto é construído com Angular e segue uma estrutura modular, com componen
     ```bash
     npm install
     ```
-    ou
-    ```bash
-    yarn install
-    ```
 2.  **Inicie o servidor de desenvolvimento**:
     ```bash
     ng serve
