@@ -1,27 +1,45 @@
 # NesterFront
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.3.
+Este projeto é um frontend Angular chamado "NesterFront". Ele fornece uma interface de usuário para uma aplicação de rede social, permitindo que os usuários se cadastrem, façam login, gerenciem seus perfis, visualizem e interajam com postagens.
 
-## Development server
+### Funcionalidades Principais
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+* **Autenticação de Usuário**:
+    * **Login**: Os usuários podem entrar na aplicação com seu e-mail e senha.
+    * **Cadastro**: Novos usuários podem se registrar fornecendo nome completo, e-mail, data de nascimento e senha.
+    * **Recuperação de Senha**: Funcionalidade para redefinir a senha através de um link enviado por e-mail.
+    * **Guards de Rota**: Proteção de rotas para garantir que apenas usuários autenticados acessem certas partes da aplicação (`AuthGuard`) e que usuários já logados sejam redirecionados de páginas de login/cadastro (`GuestGuard`).
+    * **Interceptor de Autenticação**: Adiciona automaticamente o token de autorização às requisições HTTP.
+    * **Interceptor de Erro**: Lida com erros HTTP, como `401` ou `403`, redirecionando para a página de login.
 
-## Code scaffolding
+* **Funcionalidades de Perfil**:
+    * **Meu Perfil**: Exibe o perfil do usuário logado, suas postagens, quantidade de seguidores e quem ele está seguindo. Permite editar informações do perfil e a foto.
+    * **Perfil de Outros Usuários**: Permite visualizar o perfil de outros usuários, suas postagens e a opção de segui-los.
+    * **Busca de Usuários**: Capacidade de buscar outros usuários e visualizar perfis recomendados.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+* **Funcionalidades de Postagem**:
+    * **Feed**: Exibe postagens para o usuário, separadas entre "Para Você" (geral) e "Seguindo" (de usuários seguidos).
+    * **Criação de Postagem**: Permite aos usuários criar novas postagens.
+    * **Edição de Postagem**: Usuários podem editar suas próprias postagens.
+    * **Exclusão de Postagem**: Usuários podem deletar suas próprias postagens.
+    * **Curtir/Descurtir Postagem**: Permite interagir com as postagens curtindo-as ou removendo curtidas.
 
-## Build
+### Estrutura do Projeto
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+O projeto é construído com Angular e segue uma estrutura modular, com componentes para cada seção da UI (`components`), interfaces para tipagem de dados (`interfaces`) e serviços para comunicação com a API de backend (`services`).
 
-## Running unit tests
+### Como Rodar o Projeto (Ambiente de Desenvolvimento)
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+1.  **Instale as dependências**:
+    ```bash
+    npm install
+    ```
+    ou
+    ```bash
+    yarn install
+    ```
+2.  **Inicie o servidor de desenvolvimento**:
+    ```bash
+    ng serve
+    ```
+    Navegue até `http://localhost:4200/` no seu navegador. A aplicação será recarregada automaticamente se você fizer alterações nos arquivos de origem.
