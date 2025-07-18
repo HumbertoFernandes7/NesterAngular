@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Usuario } from '../interfaces/usuario';
-import { environment } from '../../environments/environment.desenv';
+import { environment } from '../../environments/environment';
 import { Email } from '../interfaces/email';
 import { ResetSenha } from '../interfaces/resetSenha';
 import { Seguidor } from '../interfaces/seguidor';
