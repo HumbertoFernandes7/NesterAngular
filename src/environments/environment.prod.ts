@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  api_url: 'nesterapi.onrender.com',
+  api_url: 'https://nesterapi.onrender.com',
 };
