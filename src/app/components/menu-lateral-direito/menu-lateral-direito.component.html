@@ -1,7 +1,6 @@
 <div class="app-container">
   <aside class="right-sidebar">
     <nav class="right-menu">
-      <!-- Barra de busca -->
       <div class="search-wrapper">
         <input
           type="text"
@@ -17,7 +16,12 @@
             (click)="selecionarUsuario(usuario)"
             class="result-item"
           >
-            <img [src]="usuario.foto" alt="Foto de perfil de {{usuario.nome}}" class="avatar" />
+            <div class="avatar-container">
+              <ng-container *ngIf="usuario.loadingPhoto">
+                <ng-icon name="heroArrowPath" class="spinner-small"></ng-icon>
+              </ng-container>
+              <img [src]="usuario.foto" alt="Foto de perfil de {{usuario.nome}}" class="avatar" *ngIf="!usuario.loadingPhoto && usuario.foto"/>
+            </div>
             <div class="user-info">
               <div class="name">{{ usuario.nome }}</div>
             </div>
@@ -26,33 +30,35 @@
         <p class="no-results" *ngIf="searchInput && usuarios.length === 0">Nenhum usuário encontrado</p>
       </div>
 
-      <!-- Usuários recomendados -->
       <section class="suggestions">
         <h3 class="suggestions-title">Sugestões para você</h3>
         <ul class="suggestions-list">
           <li *ngFor="let usuario of usuariosRecomendados" class="suggestion-item">
             <div class="suggestion-info">
-              <img [src]="usuario.foto" alt="Foto de perfil de {{usuario.nome}}" class="avatar" />
+              <div class="avatar-container">
+                <ng-container *ngIf="usuario.loadingPhoto">
+                  <ng-icon name="heroArrowPath" class="spinner-small"></ng-icon>
+                </ng-container>
+                <img [src]="usuario.foto" alt="Foto de perfil de {{usuario.nome}}" class="avatar" *ngIf="!usuario.loadingPhoto && usuario.foto"/>
+              </div>
               <strong>{{ usuario.nome }}</strong>
             </div>
 
-            <button 
+            <button
             class="follow-btn"
-      [class.following]="usuario.isFollowing"
-      (click)="seguirUsuario(usuario)"
-    >
-      {{ usuario.isFollowing ? 'Seguindo' : 'Seguir' }}
+            [class.following]="usuario.isFollowing"
+            (click)="seguirUsuario(usuario)"
+            >
+            {{ usuario.isFollowing ? 'Seguindo' : 'Seguir' }}
+          </button>
+        </li>
+      </ul>
+    </section>
 
-            </button>
-          </li>
-        </ul>
-      </section>
+    <div class="divider"></div>
 
-      <div class="divider"></div>
-
-      <!-- Ações -->
-      <button type="button" class="right-item">Mensagens</button>
-      <button type="button" class="right-item" (click)="deslogar()">Logout</button>
-    </nav>
-  </aside>
+    <button type="button" class="right-item">Mensagens</button>
+    <button type="button" class="right-item" (click)="deslogar()">Logout</button>
+  </nav>
+</aside>
 </div>

@@ -6,4 +6,5 @@ export interface Usuario {
     foto: string;
     senha: string;
     isFollowing?: boolean;
+    loadingPhoto?: boolean;
 }
