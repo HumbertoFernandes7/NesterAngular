@@ -3,8 +3,11 @@ import { MenuLateralComponent } from '../menu-lateral/menu-lateral.component';
 import { MenuMobileComponent } from '../menu-mobile/menu-mobile.component';
 import { MenuLateralDireitoComponent } from '../menu-lateral-direito/menu-lateral-direito.component';
 import { PostagemCadastoComponent } from '../postagem-cadastro/postagem-cadastro.component';
-import { CommonModule, NgIf } from '@angular/common';
-import { NgIcon } from '@ng-icons/core';
+import { CommonModule, NgIf, DatePipe } from '@angular/common'; // Adicione DatePipe
+import { NgIcon, provideIcons } from '@ng-icons/core';
+// CORREÇÃO: Importe heroHeartSolid de '@ng-icons/heroicons/solid'
+import { heroHeart, heroChatBubbleOvalLeft, heroArrowPath } from '@ng-icons/heroicons/outline';
+import { heroHeartSolid } from '@ng-icons/heroicons/solid';
 import { Postagem } from '../../interfaces/postagem';
 import { ToastrService } from 'ngx-toastr';
 import { UsuarioService } from '../../services/usuario.service';
@@ -29,9 +32,13 @@ import { Seguidor } from '../../interfaces/seguidor';
     NgIcon,
     PostagemEditarComponent,
     FormsModule,
+    DatePipe
   ],
   templateUrl: './meu-perfil.component.html',
   styleUrl: './meu-perfil.component.css',
+  viewProviders: [
+    provideIcons({ heroHeart, heroHeartSolid, heroChatBubbleOvalLeft, heroArrowPath }),
+  ],
 })
 export class MeuPerfilComponent implements OnInit {
   @Input() isOwner: boolean = true;
@@ -39,9 +46,9 @@ export class MeuPerfilComponent implements OnInit {
   @Input() usuario!: Usuario;
   @Input() isFollowing = false;
   @Input() contagemSeguidor!: Seguidor
-  
+
   editarPerfilVisivel = false;
-  
+
   constructor(
     private toastService: ToastrService,
     private usuarioService: UsuarioService,
@@ -87,14 +94,23 @@ export class MeuPerfilComponent implements OnInit {
   }
 
   carregarFotoUsuarioLogado() {
+    if (this.usuario) {
+        this.usuario.loadingPhoto = true;
+    }
     this.usuarioService.buscarFotoUsuarioLogado().subscribe({
       next: (blob) => {
-        this.usuario.foto = URL.createObjectURL(blob);
+        if (this.usuario) {
+          this.usuario.foto = URL.createObjectURL(blob);
+          this.usuario.loadingPhoto = false;
+        }
       },
       error: (erro) => {
         this.toastService.error(
           'Erro inesperado ao carregar foto do usuário ' + erro.message
         );
+        if (this.usuario) {
+          this.usuario.loadingPhoto = false;
+        }
       },
     });
   }

@@ -35,8 +35,11 @@
   border-radius: 50%;
   border: 4px solid #0a1117;
   overflow: hidden;
-  background-color: #15202b;
+  background-color: #15202b; /* Cor de fundo para o spinner */
   cursor: pointer;
+  display: flex; /* Adicionado para centralizar o spinner */
+  align-items: center;
+  justify-content: center;
 }
 
 /* Overlay escondida por padrão */
@@ -74,6 +77,9 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  position: absolute; /* Para sobrepor o spinner */
+  top: 0;
+  left: 0;
 }
 .profile-actions .btn {
   padding: 8px 16px;
@@ -331,6 +337,25 @@
 }
 .btn-save:hover {
   background-color: rgba(29, 161, 242, 0.8);
+}
+
+/* Estilos para o spinner */
+.spinner-large {
+  font-size: 60px; /* Tamanho maior para o avatar principal */
+  color: #1da1f2;
+  animation: spin 1s linear infinite;
+}
+
+/* Opcional: Estilo para o spinner pequeno, caso a imagem da postagem seja adicionada */
+.spinner-small {
+  font-size: 24px; /* Tamanho menor para os avatares das postagens */
+  color: #1da1f2;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @media screen and (max-width: 768px) {

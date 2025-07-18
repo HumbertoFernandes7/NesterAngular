@@ -4,13 +4,16 @@
 
   <div class="main-content">
     <div class="profile-container">
-      <!-- Avatar e ações principais -->
       <div class="profile-header">
         <div class="avatar-wrapper">
+          <ng-container *ngIf="usuario?.loadingPhoto">
+            <ng-icon name="heroArrowPath" class="spinner-large"></ng-icon>
+          </ng-container>
           <img
             [src]="usuario?.foto"
             alt="Avatar do usuário"
             class="profile-avatar"
+            *ngIf="!usuario?.loadingPhoto && usuario?.foto"
           />
           <div class="upload-overlay" *ngIf="isOwner">
             <label>
@@ -44,7 +47,6 @@
         </div>
       </div>
 
-      <!-- Informações do usuário -->
       <div class="profile-info">
         <h2 class="profile-name">{{ usuario?.nome }}</h2>
         <p class="profile-extra">
@@ -53,14 +55,12 @@
         </p>
       </div>
 
-      <!-- Navegação de abas (Tweets, Respostas, Mídia) -->
       <nav class="profile-nav">
         <ul>
           <li class="active"><a>Tweets</a></li>
         </ul>
       </nav>
 
-      <!-- Feed de publicações -->
       <div class="profile-feed">
         <article class="post" *ngFor="let postagem of postagens">
           <div class="post-header">
@@ -85,8 +85,7 @@
           </div>
           <div class="post-body">
             <p>{{ postagem.mensagem }}</p>
-            <!-- Eventuais imagens, vídeos, etc. -->
-          </div>
+            </div>
           <div class="post-footer">
             <button
               class="action-btn"
@@ -108,14 +107,11 @@
             </button>
           </div>
         </article>
-        <!-- Repetir <article class="post"> para cada publicação -->
-      </div>
+        </div>
 
       <ng-container *ngIf="editarPerfilVisivel">
-        <!-- Overlay escuro -->
         <div class="overlay" (click)="fecharEdicaoPerfil()"></div>
 
-        <!-- Modal de Edição de Perfil -->
         <div class="modal-editar-perfil">
           <header class="modal-header">
             <h3>Editar perfil</h3>
@@ -123,13 +119,11 @@
           </header>
 
           <form (ngSubmit)="salvarEdicaoPerfil()" class="perfil-form">
-            <!-- Nome -->
             <div class="campo-input">
               <label for="nome">Nome</label>
               <input [(ngModel)]="usuario.nome" name="nome" />
             </div>
 
-            <!-- E-mail (somente leitura) -->
             <div class="campo-input">
               <label for="email">E-mail</label>
               <input
@@ -140,7 +134,6 @@
               />
             </div>
 
-            <!-- Data de nascimento -->
             <div class="campo-input">
               <label for="dataNascimento">Data de nascimento</label>
               <input
@@ -152,7 +145,6 @@
               />
             </div>
 
-            <!-- Senha atual -->
             <div class="campo-input">
               <label for="senhaAtual">Nova Senha</label>
               <input
