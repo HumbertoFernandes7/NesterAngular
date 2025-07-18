@@ -1,6 +1,7 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { NgIcon, provideIcons } from '@ng-icons/core';
-import { heroUsers } from '@ng-icons/heroicons/outline';
+// Importe o ícone heroArrowPath
+import { heroUsers, heroArrowPath } from '@ng-icons/heroicons/outline'; // Adicione heroArrowPath aqui
 import { PostagemCadastoComponent } from '../postagem-cadastro/postagem-cadastro.component';
 import { CommonModule, NgIf } from '@angular/common';
 import { LoginService } from '../../services/login.service';
@@ -27,7 +28,8 @@ import { PostagemService } from '../../services/postagem.service';
   ],
   templateUrl: './feed.component.html',
   styleUrl: './feed.component.css',
-  viewProviders: [provideIcons({ heroUsers })],
+  // Adicione heroArrowPath ao provideIcons
+  viewProviders: [provideIcons({ heroUsers, heroArrowPath })],
 })
 export class FeedComponent implements OnInit {
   postagensForYou: Postagem[] = [];
@@ -35,6 +37,7 @@ export class FeedComponent implements OnInit {
   feed1 = true;
   feed2 = true;
   mobile = false;
+  loadingFeed = false; // Adicione esta propriedade para controlar o spinner
 
   constructor(
     private loginService: LoginService,
@@ -50,6 +53,7 @@ export class FeedComponent implements OnInit {
   }
 
   listarPublicacoesFeed() {
+    this.loadingFeed = true; // Ativa o spinner ao iniciar o carregamento
     forkJoin({
       usuarioLogado: this.usuarioService.buscarDadosUsuarioLogado(),
       postagensForYou: this.postagemService.listarForYou(),
@@ -63,10 +67,12 @@ export class FeedComponent implements OnInit {
         this.postagensSeguindo = this.postagemService.prepararPostagens(
           postagenSeguindo,
           usuarioLogado
-        )
+        );
+        this.loadingFeed = false; // Desativa o spinner ao concluir o carregamento com sucesso
       },
       error: () => {
         this.toastService.error('Ocorreu um erro inesperado!');
+        this.loadingFeed = false; // Desativa o spinner em caso de erro
       },
     });
   }

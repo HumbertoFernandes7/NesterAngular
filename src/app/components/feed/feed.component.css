@@ -2,7 +2,7 @@
 
 .main-feed {
   flex: 1;
-  padding: 60px 20px 0 20px; 
+  padding: 60px 20px 0 20px;
   box-sizing: border-box;
 }
 
@@ -126,6 +126,35 @@
 }
 .action-btn:hover {
   background-color: rgba(29, 161, 242, 0.1);
+}
+
+/* Estilos para a mensagem de "nenhuma publicação" */
+.no-posts-message {
+  text-align: center;
+  color: #8899a6;
+  padding: 20px;
+  font-size: 16px;
+}
+
+/* Estilos para o spinner de carregamento */
+.loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%; /* Garante que o spinner fique centralizado no container */
+  color: #1da1f2; /* Cor do spinner */
+  font-size: 16px;
+}
+
+.spinner-icon {
+  font-size: 48px; /* Tamanho do ícone */
+  animation: spin 1s linear infinite; /* Animação de rotação */
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 @media (max-width: 1024px) {

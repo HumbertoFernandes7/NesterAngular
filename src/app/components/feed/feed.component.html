@@ -4,91 +4,117 @@
 
   <main class="main-feed">
     <div class="feeds-wrapper">
-      <!-- Feed 'Para Você' -->
       <div class="feed-column" *ngIf="feed1">
         <a (click)="trocarAssuntoFeed()">
           <h2 class="feed-title">Para Você</h2>
         </a>
         <div class="feed-container">
-          <article class="post" *ngFor="let postagem of postagensForYou">
-            <header class="post-header">
-              <div class="post-user">
-                <div class="post-user-info">
-                  <strong>{{ postagem.usuario.nome }}</strong>
-                  <span>{{ postagem.dataPostagem | date : "dd/MM/yyyy" }}</span>
+          <div *ngIf="loadingFeed" class="loading-spinner">
+            <ng-icon name="heroArrowPath" class="spinner-icon"></ng-icon>
+            <p>Carregando publicações...</p>
+          </div>
+
+          <ng-container *ngIf="!loadingFeed">
+            <ng-container *ngIf="postagensForYou.length > 0; else noPostsForYou">
+              <article class="post" *ngFor="let postagem of postagensForYou">
+                <header class="post-header">
+                  <div class="post-user">
+                    <div class="post-user-info">
+                      <strong>{{ postagem.usuario.nome }}</strong>
+                      <span>{{ postagem.dataPostagem | date : "dd/MM/yyyy" }}</span>
+                    </div>
+                  </div>
+                </header>
+
+                <div class="post-content">
+                  <p>{{ postagem.mensagem }}</p>
                 </div>
+
+                <footer class="post-actions">
+                  <button
+                    class="action-btn"
+                    aria-label="Curtir post"
+                    (click)="
+                      postagem.jaCurtiu
+                        ? removerCurtida(postagem)
+                        : curtirPostagem(postagem)
+                    "
+                  >
+                    <ng-icon
+                      [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
+                    ></ng-icon>
+                    {{ postagem.quantidadeCurtidas }}
+                  </button>
+
+                  <button class="action-btn" aria-label="Comentar post">
+                    <ng-icon name="heroChatBubbleOvalLeft"></ng-icon>
+                  </button>
+                </footer>
+              </article>
+            </ng-container>
+            <ng-template #noPostsForYou>
+              <div class="no-posts-message">
+                <p>Não há publicações para exibir neste feed.</p>
               </div>
-            </header>
-
-            <div class="post-content">
-              <p>{{ postagem.mensagem }}</p>
-            </div>
-
-            <footer class="post-actions">
-              <button
-                class="action-btn"
-                aria-label="Curtir post"
-                (click)="
-                  postagem.jaCurtiu
-                    ? removerCurtida(postagem)
-                    : curtirPostagem(postagem)
-                "
-              >
-                <ng-icon
-                  [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
-                ></ng-icon>
-                {{ postagem.quantidadeCurtidas }}
-              </button>
-
-              <button class="action-btn" aria-label="Comentar post">
-                <ng-icon name="heroChatBubbleOvalLeft"></ng-icon>
-              </button>
-            </footer>
-          </article>
+            </ng-template>
+          </ng-container>
         </div>
       </div>
 
-      <!-- Feed 'Seguindo' -->
       <div class="feed-column" *ngIf="feed2">
         <a (click)="trocarAssuntoFeed()">
           <h2 class="feed-title">Seguindo</h2>
         </a>
         <div class="feed-container">
-          <article class="post" *ngFor="let postagem of postagensSeguindo">
-            <header class="post-header">
-              <div class="post-user">
-                <div class="post-user-info">
-                  <strong>{{ postagem.usuario.nome }}</strong>
-                  <span>{{ postagem.dataPostagem | date : "dd/MM/yyyy" }}</span>
+          <div *ngIf="loadingFeed" class="loading-spinner">
+            <ng-icon name="heroArrowPath" class="spinner-icon"></ng-icon>
+            <p>Carregando publicações...</p>
+          </div>
+
+          <ng-container *ngIf="!loadingFeed">
+            <ng-container *ngIf="postagensSeguindo.length > 0; else noPostsFollowing">
+              <article class="post" *ngFor="let postagem of postagensSeguindo">
+                <header class="post-header">
+                  <div class="post-user">
+                    <div class="post-user-info">
+                      <strong>{{ postagem.usuario.nome }}</strong>
+                      <span>{{ postagem.dataPostagem | date : "dd/MM/yyyy" }}</span>
+                    </div>
+                  </div>
+                </header>
+
+                <div class="post-content">
+                  <p>{{ postagem.mensagem }}</p>
                 </div>
+
+                <footer class="post-actions">
+                  <button
+                    class="action-btn"
+                    aria-label="Curtir post"
+                    (click)="
+                      postagem.jaCurtiu
+                        ? removerCurtida(postagem)
+                        : curtirPostagem(postagem)
+                    "
+                  >
+                    <ng-icon
+                      [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
+                    ></ng-icon>
+                    {{ postagem.quantidadeCurtidas }}
+                  </button>
+
+                  <button class="action-btn" aria-label="Comentar post">
+                    <ng-icon name="heroChatBubbleOvalLeft"></ng-icon>
+                  </button>
+                </footer>
+              </article>
+            </ng-container>
+            <ng-template #noPostsFollowing>
+              <div class="no-posts-message">
+                <p>Não há publicações para exibir neste feed.</p>
               </div>
-            </header>
-
-            <div class="post-content">
-              <p>{{ postagem.mensagem }}</p>
-            </div>
-
-            <footer class="post-actions">
-              <button
-                class="action-btn"
-                aria-label="Curtir post"
-                (click)="
-                  postagem.jaCurtiu
-                    ? removerCurtida(postagem)
-                    : curtirPostagem(postagem)
-                "
-              >
-                <ng-icon
-                  [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
-                ></ng-icon>
-                {{ postagem.quantidadeCurtidas }}
-              </button>
-
-              <button class="action-btn" aria-label="Comentar post">
-                <ng-icon name="heroChatBubbleOvalLeft"></ng-icon>
-              </button>
-            </footer>
-          </article>
+            </ng-template>
+          </ng-container>
         </div>
       </div>
     </div>
