@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   login() {
     if (this.loginForm.valid) {
       this.loginService.login(this.loginForm.value).subscribe({
-        next: (retorno) => {
+        next: () => {
           this.toast.success('Login realizado com sucesso');
           this.router.navigate(['/feed']);
         },

@@ -39,15 +39,31 @@ export class UsuarioCadastroComponent implements OnInit {
   cadastrarUsuario() {
     if (this.cadastroUsuarioForm.valid) {
       var usuario = this.cadastroUsuarioForm.getRawValue() as Usuario;
-      this.usuarioService.cadastrarUsuario(usuario).subscribe({
-        next: () => {
-          this.toastService.success("Usuário cadastrado com sucesso!");
-          this.router.navigate(['/login']);
-        },
-        error: (erro) => {
-          this.toastService.error(erro.error.message);
-        },
-      });
+      if (this.verificarSenhaValida(usuario)) {
+        this.usuarioService.cadastrarUsuario(usuario).subscribe({
+          next: () => {
+            this.toastService.success('Usuário cadastrado com sucesso!');
+            this.router.navigate(['/login']);
+          },
+          error: (erro) => {
+            this.toastService.error(erro.error.message);
+          },
+        });
+      } else {
+        this.toastService.error('A senha deve ter pelo menos 8 caracteres.');
+      }
+    }
+  }
+
+  private verificarSenhaValida(usuario: Usuario) {
+    if (
+      usuario.senha == null ||
+      usuario.senha == undefined ||
+      usuario.senha.length < 8
+    ) {
+      return false;
+    } else {
+      return true;
     }
   }
 }
