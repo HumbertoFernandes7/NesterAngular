@@ -34,11 +34,7 @@
                   <button
                     class="action-btn"
                     aria-label="Curtir post"
-                    (click)="
-                      postagem.jaCurtiu
-                        ? removerCurtida(postagem)
-                        : curtirPostagem(postagem)
-                    "
+                    (click)="toggleCurtida(postagem)"
                   >
                     <ng-icon
                       [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"
@@ -91,11 +87,7 @@
                   <button
                     class="action-btn"
                     aria-label="Curtir post"
-                    (click)="
-                      postagem.jaCurtiu
-                        ? removerCurtida(postagem)
-                        : curtirPostagem(postagem)
-                    "
+                    (click)="toggleCurtida(postagem)"
                   >
                     <ng-icon
                       [name]="postagem.jaCurtiu ? 'heroHeartSolid' : 'heroHeart'"

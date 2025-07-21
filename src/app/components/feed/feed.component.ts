@@ -53,7 +53,7 @@ export class FeedComponent implements OnInit {
   }
 
   listarPublicacoesFeed() {
-    this.loadingFeed = true; // Ativa o spinner ao iniciar o carregamento
+    this.loadingFeed = true;
     forkJoin({
       usuarioLogado: this.usuarioService.buscarDadosUsuarioLogado(),
       postagensForYou: this.postagemService.listarForYou(),
@@ -68,21 +68,17 @@ export class FeedComponent implements OnInit {
           postagenSeguindo,
           usuarioLogado
         );
-        this.loadingFeed = false; // Desativa o spinner ao concluir o carregamento com sucesso
+        this.loadingFeed = false;
       },
       error: () => {
         this.toastService.error('Ocorreu um erro inesperado!');
-        this.loadingFeed = false; // Desativa o spinner em caso de erro
+        this.loadingFeed = false;
       },
     });
   }
 
-  curtirPostagem(postagem: Postagem) {
-    this.postagemService.curtirPostagem(postagem);
-  }
-
-  removerCurtida(postagem: Postagem) {
-    this.postagemService.removerCurtida(postagem);
+  toggleCurtida(postagem: Postagem) {
+    this.postagemService.toggleCurtida(postagem);
   }
 
   abrirModalPublicacao() {

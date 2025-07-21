@@ -13,7 +13,7 @@ const URL_API = environment.api_url + '/postagem';
   providedIn: 'root',
 })
 export class PostagemService {
-  postagem!: Postagem
+  postagem!: Postagem;
   modalCadastrarPostagem = false;
   modalEditarPostagem = false;
 
@@ -23,7 +23,7 @@ export class PostagemService {
     private toastService: ToastrService
   ) {}
 
-  listarPostagensSeguindo(): Observable<Postagem[]>{
+  listarPostagensSeguindo(): Observable<Postagem[]> {
     return this.http.get<Postagem[]>(`${URL_API}/follow`);
   }
 
@@ -31,7 +31,7 @@ export class PostagemService {
     return this.http.get<Postagem[]>(`${URL_API}/foryou`);
   }
 
-  listarPostagensUsuarioLogado(){
+  listarPostagensUsuarioLogado() {
     return this.http.get<Postagem[]>(`${URL_API}/usuario`);
   }
 
@@ -44,7 +44,10 @@ export class PostagemService {
   }
 
   editarPostagem(postagem: Postagem) {
-    return this.http.put<Postagem>(`${URL_API}/atualizar/${postagem.id}`, postagem);
+    return this.http.put<Postagem>(
+      `${URL_API}/atualizar/${postagem.id}`,
+      postagem
+    );
   }
 
   deletarPostagem(postagem: Postagem) {
@@ -59,26 +62,14 @@ export class PostagemService {
     }));
   }
 
-  curtirPostagem(postagem: Postagem) {
-    this.curtidaService.curtirPostagem(postagem.id).subscribe({
+  toggleCurtida(postagem: Postagem) {
+    this.curtidaService.toggleCurtida(postagem.id).subscribe({
       next: () => {
-        postagem.jaCurtiu = true;
-        postagem.quantidadeCurtidas++;
+        postagem.jaCurtiu = !postagem.jaCurtiu;
+        postagem.quantidadeCurtidas += postagem.jaCurtiu ? 1 : -1;
       },
       error: () => {
-        this.toastService.error('Erro inesperado ao curtir postagem');
-      },
-    });
-  }
-
-  removerCurtida(postagem: Postagem) {
-    this.curtidaService.removerCurtida(postagem.id).subscribe({
-      next: () => {
-        postagem.jaCurtiu = false;
-        postagem.quantidadeCurtidas--;
-      },
-      error: () => {
-        this.toastService.error('Erro inesperado ao remover a curtida');
+        this.toastService.error('Erro inesperado ao alternar curtida');        
       },
     });
   }

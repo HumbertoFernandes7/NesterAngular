@@ -6,7 +6,11 @@ import { PostagemCadastoComponent } from '../postagem-cadastro/postagem-cadastro
 import { CommonModule, NgIf, DatePipe } from '@angular/common'; // Adicione DatePipe
 import { NgIcon, provideIcons } from '@ng-icons/core';
 // CORREÇÃO: Importe heroHeartSolid de '@ng-icons/heroicons/solid'
-import { heroHeart, heroChatBubbleOvalLeft, heroArrowPath } from '@ng-icons/heroicons/outline';
+import {
+  heroHeart,
+  heroChatBubbleOvalLeft,
+  heroArrowPath,
+} from '@ng-icons/heroicons/outline';
 import { heroHeartSolid } from '@ng-icons/heroicons/solid';
 import { Postagem } from '../../interfaces/postagem';
 import { ToastrService } from 'ngx-toastr';
@@ -32,12 +36,17 @@ import { Seguidor } from '../../interfaces/seguidor';
     NgIcon,
     PostagemEditarComponent,
     FormsModule,
-    DatePipe
+    DatePipe,
   ],
   templateUrl: './meu-perfil.component.html',
   styleUrl: './meu-perfil.component.css',
   viewProviders: [
-    provideIcons({ heroHeart, heroHeartSolid, heroChatBubbleOvalLeft, heroArrowPath }),
+    provideIcons({
+      heroHeart,
+      heroHeartSolid,
+      heroChatBubbleOvalLeft,
+      heroArrowPath,
+    }),
   ],
 })
 export class MeuPerfilComponent implements OnInit {
@@ -45,7 +54,7 @@ export class MeuPerfilComponent implements OnInit {
   @Input() postagens: Postagem[] = [];
   @Input() usuario!: Usuario;
   @Input() isFollowing = false;
-  @Input() contagemSeguidor!: Seguidor
+  @Input() contagemSeguidor!: Seguidor;
 
   editarPerfilVisivel = false;
 
@@ -82,20 +91,20 @@ export class MeuPerfilComponent implements OnInit {
     });
   }
 
-  carregarQuantidadeSeguidoresESeguidos(id: number){
+  carregarQuantidadeSeguidoresESeguidos(id: number) {
     this.usuarioService.buscarQuantidadeSeguidoresESeguidos(id).subscribe({
-      next: (retorno) =>{
-        this.contagemSeguidor = retorno
+      next: (retorno) => {
+        this.contagemSeguidor = retorno;
       },
       error: () => {
-        this.toastService.error("Erro inesperado!");
+        this.toastService.error('Erro inesperado!');
       },
     });
   }
 
   carregarFotoUsuarioLogado() {
     if (this.usuario) {
-        this.usuario.loadingPhoto = true;
+      this.usuario.loadingPhoto = true;
     }
     this.usuarioService.buscarFotoUsuarioLogado().subscribe({
       next: (blob) => {
@@ -115,12 +124,8 @@ export class MeuPerfilComponent implements OnInit {
     });
   }
 
-  curtirPostagem(postagem: Postagem) {
-    this.postagemService.curtirPostagem(postagem);
-  }
-
-  removerCurtida(postagem: Postagem) {
-    this.postagemService.removerCurtida(postagem);
+  toggleCurtida(postagem: Postagem) {
+    this.postagemService.toggleCurtida(postagem);
   }
 
   deletarPostagem(postagem: Postagem) {
